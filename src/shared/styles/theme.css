@@ -1,0 +1,33 @@
+:root {
+  /*  Palette  */
+  --color-red: #ff0000;
+  --color-red-dark: #cc0000;
+  --color-blue: #3b4cca;
+  --color-yellow: #ffde00;
+  --color-yellow-dark: #b3a125;
+
+  /*  Neutrals */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-light: #f5f5f5;
+  --color-gray-dark: #333333;
+
+  /*  Backgrounds */
+  --bg-body: var(--color-gray-light);
+  --bg-header: var(--color-red);
+  --bg-card: var(--color-white);
+
+  /*  Text */
+  --text-primary: var(--color-black);
+  --text-on-red: var(--color-white);
+  --text-on-blue: var(--color-white);
+  --text-on-yellow: var(--color-black);
+
+  /*  Borders & Shadows */
+  --border-radius: 12px;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+  /*  Animation */
+  --transition-fast: 0.3s ease-in-out;
+}

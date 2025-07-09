@@ -1,0 +1,8 @@
+.button-wrapper {
+  padding: 1em 0 2em;
+  text-align: center;
+}
+
+.button-wrapper button {
+  width: 50%;
+}

@@ -27,6 +27,7 @@ export class MainPage extends Component {
     queryLocalStorage().setQuery(this.state.query);
     const trimmed = this.state.query.trim();
     this.setState({ isLoading: true });
+
     try {
       const data = await fetchPokemonsAPI(trimmed);
       this.setState({

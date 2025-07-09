@@ -1,6 +1,6 @@
 body {
+  overflow-y: scroll;
   color: var(--text-primary);
-
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 400;
   line-height: 1.5;
@@ -65,7 +65,6 @@ h6 {
 
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
 }
 
 input,

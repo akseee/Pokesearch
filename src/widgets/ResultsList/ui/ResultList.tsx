@@ -12,35 +12,28 @@ interface ResultListProps {
 export class ResultList extends Component<ResultListProps> {
   render() {
     const { pokemons, isLoading } = this.props;
-    console.log(pokemons);
+    const MIN_COUNT = 4;
 
-    if (isLoading) {
-      return (
-        <div>
-          {[...Array(9)].map((_, i) => (
-            <PokemonSkeletonCard key={i} />
-          ))}
-        </div>
-      );
-    }
+    const cards = pokemons.map((pokemon) => (
+      <PokemonCard key={pokemon.name} name={pokemon.name} url={pokemon.url} />
+    ));
 
-    if (!pokemons.length) {
+    const missing = Math.max(MIN_COUNT - cards.length, 0);
+    const skeletons = Array.from({ length: missing }, (_, i) => (
+      <PokemonSkeletonCard key={`skeleton-${i}`} />
+    ));
+
+    if (!isLoading && pokemons.length === 0) {
       return (
-        <div>
-          <p>No Pokémons found.</p>
+        <div className={styles.empty}>
+          <p>No Pokémon found...</p>
         </div>
       );
     }
 
     return (
       <ul className={styles['result-wrapper']}>
-        {pokemons.map((pokemon) => (
-          <PokemonCard
-            key={pokemon.name}
-            name={pokemon.name}
-            url={pokemon.url}
-          />
-        ))}
+        {isLoading ? [...cards, ...skeletons] : cards}
       </ul>
     );
   }

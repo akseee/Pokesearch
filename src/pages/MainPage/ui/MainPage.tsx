@@ -1,12 +1,13 @@
 import { Component } from 'react';
 import { ErrorButton } from '../../../features/ErrorButton';
-import { ErrorContext } from '../../../app/ErrorBoundary/errorContext';
+import { ErrorContext } from '../../../app/errorBoundary/errorContext';
 import { ErrorText } from '../../../features/ErrorText';
 import { ResultList } from '../../../widgets/ResultsList/ui/ResultList';
 import { SearchForm } from '../../../features/SearchForm';
 import { queryLocalStorage } from '../../../shared/lib/queryLocalStorage';
 import { fetchPokemonsAPI } from '../../../shared/api/searchApi';
 import type { NamedAPIResource } from '../../../shared/types/api';
+import styles from './MainPage.module.css';
 
 export class MainPage extends Component {
   static contextType = ErrorContext;
@@ -53,8 +54,7 @@ export class MainPage extends Component {
 
   render() {
     return (
-      <div>
-        <ErrorButton />
+      <div className={styles.wrapper}>
         <SearchForm
           value={this.state.query}
           onChange={this.handleChange}
@@ -67,6 +67,7 @@ export class MainPage extends Component {
           pokemons={this.state.pokemonResources}
           isLoading={this.state.isLoading}
         />
+        <ErrorButton />
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import type { PokemonData } from '../../../shared/types/pokemon';
-import { PokemonCardLayout } from './PokemonCardLayout';
+import { PokemonCardLayout } from '../../../shared/ui/PokemonCardLayout/PokemonCardLayout';
 
 export const PokemonCardUI = ({ data }: { data: PokemonData }) => {
   return (

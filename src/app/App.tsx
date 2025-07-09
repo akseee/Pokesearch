@@ -1,5 +1,6 @@
 import { MainPage } from '../pages/MainPage/ui/MainPage';
-import { ErrorBoundary } from './ErrorBoundary/ErrorBoundary';
+import { ErrorBoundary } from './errorBoundary/ErrorBoundary';
+import '../shared/styles';
 
 function App() {
   return (

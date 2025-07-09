@@ -1,5 +1,6 @@
 import { Component, type ChangeEvent, type FormEvent } from 'react';
 import type { SearchFormProps } from '../model/types';
+import styles from './SearchForm.module.css';
 
 export class SearchForm extends Component<SearchFormProps> {
   handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -13,16 +14,12 @@ export class SearchForm extends Component<SearchFormProps> {
   };
 
   render() {
-    const {
-      value,
-      inputPlaceholder,
-      buttonText = 'Search',
-      className,
-    } = this.props;
+    const { value, inputPlaceholder, buttonText = 'Search' } = this.props;
 
     return (
-      <form className={className} onSubmit={this.handleSubmit}>
+      <form className={styles.form} onSubmit={this.handleSubmit}>
         <input
+          id="search"
           type="text"
           value={value}
           onChange={this.handleInputChange}

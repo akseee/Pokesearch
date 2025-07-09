@@ -1,9 +1,14 @@
-import { PokemonCardLayout } from './PokemonCardLayout';
+import { PokemonCardLayout } from '../../../shared/ui/PokemonCardLayout/PokemonCardLayout';
 
 export const PokemonSkeletonCard = () => {
   const line = <div />;
 
   return (
-    <PokemonCardLayout image={<div />} title={<div />} lines={[line, line]} />
+    <PokemonCardLayout
+      loading={true}
+      image={<div />}
+      title={<div />}
+      lines={[line, line]}
+    />
   );
 };

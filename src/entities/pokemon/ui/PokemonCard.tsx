@@ -78,7 +78,7 @@ export class PokemonCard extends Component<NamedAPIResource, PokemonCardState> {
     const { data, isLoading, error } = this.state;
 
     if (isLoading) return <PokemonSkeletonCard />;
-    if (error || !data) return <div className="card-error">Error loading</div>;
+    if (error || !data) return <div>Error loading pokemons data</div>;
 
     return <PokemonCardUI data={data} />;
   }

@@ -7,7 +7,7 @@ export async function fetchPokemonsAPI(
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${query.toLowerCase()}`
     );
-    if (!response.ok) throw new Error('Pokemon is not found');
+    if (!response.ok) throw new Error('No Pokémon found');
     const data = await response.json();
 
     return {
@@ -25,5 +25,3 @@ export async function fetchPokemonsAPI(
   const response = await fetch('https://pokeapi.co/api/v2/pokemon');
   return await response.json();
 }
-
-// export async function searchPokemons(query: string) {}

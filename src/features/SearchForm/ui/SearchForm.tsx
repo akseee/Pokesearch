@@ -1,4 +1,4 @@
-import { Component, type ChangeEvent } from 'react';
+import { Component, type ChangeEvent, type FormEvent } from 'react';
 import type { SearchFormProps } from '../model/types';
 
 export class SearchForm extends Component<SearchFormProps> {
@@ -7,7 +7,8 @@ export class SearchForm extends Component<SearchFormProps> {
     this.props.onChange(value);
   };
 
-  handleButtonClick = () => {
+  handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     this.props.onSearch();
   };
 
@@ -20,15 +21,15 @@ export class SearchForm extends Component<SearchFormProps> {
     } = this.props;
 
     return (
-      <div className={className}>
+      <form className={className} onSubmit={this.handleSubmit}>
         <input
           type="text"
           value={value}
           onChange={this.handleInputChange}
           placeholder={inputPlaceholder || 'Search.…'}
         />
-        <button onClick={this.handleButtonClick}>{buttonText}</button>
-      </div>
+        <button type="submit">{buttonText}</button>
+      </form>
     );
   }
 }

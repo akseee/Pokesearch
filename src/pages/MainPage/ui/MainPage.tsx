@@ -28,9 +28,13 @@ export class MainPage extends Component {
     this.setState({ isLoading: true });
     try {
       const data = await fetchPokemonsAPI(trimmed);
-      this.setState({ pokemonResources: data.results, isLoading: false });
+      this.setState({
+        pokemonResources: data.results,
+        isLoading: false,
+      });
+      this.setState({});
     } catch (error) {
-      this.setState({ isLoading: false });
+      this.setState({ isLoading: false, pokemonResources: [] });
 
       throw new Error(`${error}`);
     }

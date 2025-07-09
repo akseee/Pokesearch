@@ -2,6 +2,7 @@ import { Component } from 'react';
 import type { NamedAPIResource } from '../../../shared/types/api';
 import { PokemonSkeletonCard } from '../../../entities/pokemon/ui/PokemonCardSkeleton';
 import { PokemonCard } from '../../../entities/pokemon/ui/PokemonCard';
+import styles from './ResultList.module.css';
 
 interface ResultListProps {
   isLoading: boolean;
@@ -32,7 +33,7 @@ export class ResultList extends Component<ResultListProps> {
     }
 
     return (
-      <div>
+      <ul className={styles['result-wrapper']}>
         {pokemons.map((pokemon) => (
           <PokemonCard
             key={pokemon.name}
@@ -40,7 +41,7 @@ export class ResultList extends Component<ResultListProps> {
             url={pokemon.url}
           />
         ))}
-      </div>
+      </ul>
     );
   }
 }

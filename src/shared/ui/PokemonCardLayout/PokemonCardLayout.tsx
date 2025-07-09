@@ -1,30 +1,41 @@
-import { Fragment, type ReactNode } from 'react';
+import { Fragment } from 'react';
 import { Loader } from '../Loader/Loader';
+import type { PokemonStats } from '../../types/pokemon';
+import styles from './PokemonCardLayout.module.css';
+import PokemonStatsList from './PokemonStatsList';
+
+interface PokemonCardLayoutProps {
+  loading?: boolean;
+  order: number;
+  image?: string;
+  type: string;
+  title: string;
+  stats?: PokemonStats;
+}
 
 export const PokemonCardLayout = ({
   loading = false,
   image,
+  order,
+  type,
   title,
-  lines,
-}: {
-  loading?: boolean;
-  image: ReactNode;
-  title: ReactNode;
-  lines: ReactNode[];
-}) => (
-  <div>
-    {loading ? (
-      <Loader />
-    ) : (
-      <Fragment>
-        <div>{image}</div>
-        <div>{title}</div>
-        <ul>
-          {lines.map((line, i) => (
-            <li key={i}>{line}</li>
-          ))}
-        </ul>
-      </Fragment>
-    )}
-  </div>
+  stats,
+}: PokemonCardLayoutProps) => (
+  <li id={title.toLowerCase()} className={styles['card-layout-wrapper']}>
+    <Fragment>
+      <div className={styles['image-container']}>
+        {loading ? (
+          <Loader />
+        ) : (
+          <img className={styles.image} src={image} alt={title} />
+        )}
+      </div>
+      <div className={styles.title}>{title}</div>
+      <div className={styles.order}>
+        {`#${order.toString().padStart(3, '0')}`}
+      </div>
+      <div className={styles.type}>{type}</div>
+      <PokemonStatsList stats={stats} />
+    </Fragment>
+  </li>
 );

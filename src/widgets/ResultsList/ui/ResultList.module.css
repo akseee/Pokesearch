@@ -1,0 +1,13 @@
+.result-wrapper {
+  display: grid;
+  flex-shrink: 1;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+  padding: 0 2em;
+}
+
+@media (max-width: 1024px) {
+  .result-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

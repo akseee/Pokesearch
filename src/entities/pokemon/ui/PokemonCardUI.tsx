@@ -1,4 +1,4 @@
-import type { PokemonData } from '../model/types';
+import type { PokemonData } from '../../../shared/types/pokemon';
 import { PokemonCardLayout } from './PokemonCardLayout';
 
 export const PokemonCardUI = ({ data }: { data: PokemonData }) => {

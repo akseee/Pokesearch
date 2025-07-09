@@ -1,12 +1,3 @@
-export interface PokemonData {
-  name: string;
-  type: string;
-  id: number;
-  image: string;
-  stats: PokemonStats;
-  order: number;
-}
-
 export interface RawPokemonResponse {
   name: string;
   id: number;
@@ -23,13 +14,4 @@ export interface RawPokemonResponse {
   };
   types: { type: { name: string } }[];
   stats: { base_stat: number; stat: { name: string } }[];
-}
-
-export interface PokemonStats {
-  hp: number;
-  attack: number;
-  defense: number;
-  speed: number;
-  ['special-attack']: number;
-  ['special-defense']: number;
 }

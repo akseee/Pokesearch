@@ -1,6 +1,6 @@
 import type { NamedAPIResource } from '../../../shared/types/api';
+import type { PokemonData } from '../../../shared/types/pokemon';
 import { fetchOnePokemonData } from './fetchOnePokemonData';
-import type { PokemonData } from './types';
 
 export async function fetchAllPokemonsData(
   resources: NamedAPIResource[]

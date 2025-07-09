@@ -1,12 +1,10 @@
 import { Component } from 'react';
-import type {
-  PokemonData,
-  PokemonStats,
-  RawPokemonResponse,
-} from '../model/types';
+import type { RawPokemonResponse } from '../model/types';
 import { PokemonSkeletonCard } from './PokemonCardSkeleton';
 import { PokemonCardUI } from './PokemonCardUI';
 import type { NamedAPIResource } from '../../../shared/types/api';
+import type { PokemonData, PokemonStats } from '../../../shared/types/pokemon';
+import { pokemonCache } from '../../../shared/lib/cache';
 
 interface PokemonCardState {
   data: PokemonData | null;
@@ -22,7 +20,16 @@ export class PokemonCard extends Component<NamedAPIResource, PokemonCardState> {
   };
 
   componentDidMount() {
-    this.fetchPokemon();
+    const key = this.props.name;
+
+    if (pokemonCache.has(key)) {
+      this.setState({
+        data: pokemonCache.get(key) || null,
+        isLoading: false,
+      });
+    } else {
+      this.fetchPokemon();
+    }
   }
 
   async fetchPokemon() {
@@ -52,6 +59,8 @@ export class PokemonCard extends Component<NamedAPIResource, PokemonCardState> {
         image,
         stats: statsObj,
       };
+
+      pokemonCache.set(this.props.name.toLowerCase(), data);
 
       this.setState({ data, isLoading: false });
     } catch (error) {

@@ -1,12 +1,44 @@
 import { Component } from 'react';
-import { SearchBar } from '../../../widgets/SearchBar';
 import { ErrorButton } from '../../../features/ErrorButton';
 import { ErrorContext } from '../../../app/ErrorBoundary/errorContext';
 import { ErrorText } from '../../../features/ErrorText';
+import { ResultList } from '../../../widgets/ResultsList/ui/ResultList';
+import { SearchForm } from '../../../features/SearchForm';
+import { queryLocalStorage } from '../../../shared/lib/queryLocalStorage';
+import { fetchPokemonsAPI } from '../../../shared/api/searchApi';
+import type { NamedAPIResource } from '../../../shared/types/api';
 
 export class MainPage extends Component {
   static contextType = ErrorContext;
   declare context: React.ContextType<typeof ErrorContext>;
+
+  state = {
+    query: queryLocalStorage().getQuery(),
+    pokemonResources: [] as NamedAPIResource[],
+    isLoading: false,
+  };
+
+  componentDidMount = () => {
+    this.fetchPokemons();
+  };
+
+  fetchPokemons = async () => {
+    queryLocalStorage().setQuery(this.state.query);
+    const trimmed = this.state.query.trim();
+    this.setState({ isLoading: true });
+    try {
+      const data = await fetchPokemonsAPI(trimmed);
+      this.setState({ pokemonResources: data.results, isLoading: false });
+    } catch (error) {
+      this.setState({ isLoading: false });
+
+      throw new Error(`${error}`);
+    }
+  };
+
+  handleChange = (newValue: string) => {
+    this.setState({ query: newValue });
+  };
 
   renderError() {
     const { error, resetError } = this.context;
@@ -19,8 +51,18 @@ export class MainPage extends Component {
     return (
       <div>
         <ErrorButton />
-        <SearchBar />
+        <SearchForm
+          value={this.state.query}
+          onChange={this.handleChange}
+          onSearch={this.fetchPokemons}
+          inputPlaceholder="Find your pokemon"
+          buttonText="Find"
+        />
         {this.renderError()}
+        <ResultList
+          pokemons={this.state.pokemonResources}
+          isLoading={this.state.isLoading}
+        />
       </div>
     );
   }

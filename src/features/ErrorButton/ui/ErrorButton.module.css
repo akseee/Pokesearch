@@ -5,4 +5,5 @@
 
 .button-wrapper button {
   width: 50%;
+  background-color: var(--color-red-dark);
 }

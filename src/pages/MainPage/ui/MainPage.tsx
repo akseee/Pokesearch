@@ -1,18 +1,14 @@
 import { Component } from 'react';
 import { ErrorButton } from '../../../features/ErrorButton';
-import { ErrorContext } from '../../../app/errorBoundary/errorContext';
-import { ErrorText } from '../../../features/ErrorText';
 import { ResultList } from '../../../widgets/ResultsList/ui/ResultList';
 import { SearchForm } from '../../../features/SearchForm';
 import { queryLocalStorage } from '../../../shared/lib/queryLocalStorage';
 import { fetchPokemonsAPI } from '../../../shared/api/searchApi';
 import type { NamedAPIResource } from '../../../shared/types/api';
 import styles from './MainPage.module.css';
+import { ErrorBoundary } from '../../../shared/ui/errorBoundary/ErrorBoundary';
 
 export class MainPage extends Component {
-  static contextType = ErrorContext;
-  declare context: React.ContextType<typeof ErrorContext>;
-
   state = {
     query: queryLocalStorage().getQuery(),
     pokemonResources: [] as NamedAPIResource[],
@@ -46,13 +42,6 @@ export class MainPage extends Component {
     this.setState({ query: newValue });
   };
 
-  renderError() {
-    const { error, resetError } = this.context;
-    if (!error) return null;
-
-    return <ErrorText error={error} resetError={resetError} />;
-  }
-
   render() {
     return (
       <div className={styles.wrapper}>
@@ -63,12 +52,13 @@ export class MainPage extends Component {
           inputPlaceholder="Find your pokemon"
           buttonText="Find"
         />
-        {this.renderError()}
-        <ResultList
-          pokemons={this.state.pokemonResources}
-          isLoading={this.state.isLoading}
-        />
-        <ErrorButton />
+        <ErrorBoundary>
+          <ResultList
+            pokemons={this.state.pokemonResources}
+            isLoading={this.state.isLoading}
+          />
+          <ErrorButton />
+        </ErrorBoundary>
       </div>
     );
   }

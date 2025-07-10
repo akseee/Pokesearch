@@ -27,6 +27,9 @@
 }
 
 .image {
+  display: flex;
+  justify-content: center;
+  align-content: center;
   width: 100%;
   max-width: 160px;
   height: auto;

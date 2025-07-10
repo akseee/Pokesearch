@@ -25,7 +25,9 @@ export const PokemonCardLayout = ({
     <Fragment>
       <div className={styles['image-container']}>
         {loading ? (
-          <Loader />
+          <div className={styles.image}>
+            <Loader />
+          </div>
         ) : (
           <img className={styles.image} src={image} alt={title} />
         )}

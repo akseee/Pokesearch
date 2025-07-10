@@ -7,6 +7,7 @@ import { fetchPokemonsAPI } from '../../../shared/api/searchApi';
 import type { NamedAPIResource } from '../../../shared/types/api';
 import styles from './MainPage.module.css';
 import { ErrorBoundary } from '../../../shared/ui/errorBoundary/ErrorBoundary';
+import { Loader } from '../../../shared/ui/Loader/Loader';
 
 export class MainPage extends Component {
   state = {
@@ -59,6 +60,11 @@ export class MainPage extends Component {
           />
           <ErrorButton />
         </ErrorBoundary>
+        {this.state.isLoading && (
+          <div className={styles.loader}>
+            <Loader />
+          </div>
+        )}
       </div>
     );
   }

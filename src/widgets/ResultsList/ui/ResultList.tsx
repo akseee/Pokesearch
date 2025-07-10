@@ -12,14 +12,13 @@ interface ResultListProps {
 export class ResultList extends Component<ResultListProps> {
   render() {
     const { pokemons, isLoading } = this.props;
-    const MIN_COUNT = 4;
+    const MIN_COUNT = 8;
 
     const cards = pokemons.map((pokemon) => (
       <PokemonCard key={pokemon.name} name={pokemon.name} url={pokemon.url} />
     ));
 
-    const missing = Math.max(MIN_COUNT - cards.length, 0);
-    const skeletons = Array.from({ length: missing }, (_, i) => (
+    const skeletons = Array.from({ length: MIN_COUNT }, (_, i) => (
       <PokemonSkeletonCard key={`skeleton-${i}`} />
     ));
 
@@ -33,7 +32,7 @@ export class ResultList extends Component<ResultListProps> {
 
     return (
       <ul className={styles['result-wrapper']}>
-        {isLoading ? [...cards, ...skeletons] : cards}
+        {isLoading ? skeletons : cards}
       </ul>
     );
   }

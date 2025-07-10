@@ -31,7 +31,6 @@ export class MainPage extends Component {
         pokemonResources: data.results,
         isLoading: false,
       });
-      this.setState({});
     } catch (error) {
       this.setState({ isLoading: false, pokemonResources: [] });
 

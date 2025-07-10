@@ -1,10 +1,10 @@
 import { Component } from 'react';
 import type { RawPokemonResponse } from '../model/types';
 import { PokemonSkeletonCard } from './PokemonCardSkeleton';
-import { PokemonCardUI } from './PokemonCardUI';
 import type { NamedAPIResource } from '../../../shared/types/api';
 import type { PokemonData, PokemonStats } from '../../../shared/types/pokemon';
 import { pokemonCache } from '../../../shared/lib/cache';
+import { PokemonCardLayout } from '../../../shared/ui/PokemonCardLayout/PokemonCardLayout';
 
 interface PokemonCardState {
   data: PokemonData | null;
@@ -18,6 +18,13 @@ export class PokemonCard extends Component<NamedAPIResource, PokemonCardState> {
     isLoading: true,
     error: null,
   };
+
+  componentDidUpdate(prevProps: NamedAPIResource) {
+    if (prevProps.url !== this.props.url) {
+      this.setState({ isLoading: true, error: null });
+      this.fetchPokemon();
+    }
+  }
 
   componentDidMount() {
     const key = this.props.name;
@@ -35,6 +42,10 @@ export class PokemonCard extends Component<NamedAPIResource, PokemonCardState> {
   async fetchPokemon() {
     try {
       const res = await fetch(this.props.url);
+
+      if (!res.ok) {
+        throw new Error(`Card loading error: ${res.status} ${res.statusText}`);
+      }
       const raw: RawPokemonResponse = await res.json();
 
       const statsObj: PokemonData['stats'] = {
@@ -77,9 +88,26 @@ export class PokemonCard extends Component<NamedAPIResource, PokemonCardState> {
   render() {
     const { data, isLoading, error } = this.state;
 
-    if (isLoading) return <PokemonSkeletonCard />;
-    if (error || !data) return <div>Error loading pokemons data</div>;
+    if (isLoading) {
+      return <PokemonSkeletonCard />;
+    }
 
-    return <PokemonCardUI data={data} />;
+    if (error || !data)
+      return (
+        <div>
+          <div>Error loading pokemons data</div>
+          <button onClick={() => this.fetchPokemon()}>Retry</button>
+        </div>
+      );
+
+    return (
+      <PokemonCardLayout
+        image={data.image}
+        order={data.order}
+        type={data.type}
+        title={data.name}
+        stats={data.stats}
+      />
+    );
   }
 }

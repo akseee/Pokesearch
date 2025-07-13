@@ -1,0 +1,17 @@
+export interface RawPokemonResponse {
+  name: string;
+  id: number;
+  order: number;
+  sprites: {
+    other: {
+      ['official-artwork']?: {
+        front_default?: string;
+      };
+      dream_world?: {
+        front_default?: string;
+      };
+    };
+  };
+  types: { type: { name: string } }[];
+  stats: { base_stat: number; stat: { name: string } }[];
+}

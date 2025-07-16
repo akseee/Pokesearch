@@ -1,4 +1,3 @@
-import { describe, expect, test, vi } from 'vitest';
 import type { NamedAPIResource } from '../../../shared/types/api';
 import { ResultList } from './ResultList';
 import { render, screen } from '@testing-library/react';

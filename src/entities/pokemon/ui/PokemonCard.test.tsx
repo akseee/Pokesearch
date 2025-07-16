@@ -1,5 +1,4 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { describe, expect, test, vi } from 'vitest';
 import { PokemonCard } from './PokemonCard';
 
 vi.mock('../../../shared/ui/PokemonCardLayout/PokemonCardLayout', () => ({

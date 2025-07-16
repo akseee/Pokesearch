@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
 import { PokemonSkeletonCard } from './PokemonCardSkeleton';
 
-describe('Pokemon Skeleton Card', () => {
+describe('Pokemon Card', () => {
   describe('Render', () => {
-    test('should render with fallabck data', () => {
+    test('handles missing props gracefully, should render with fallabck data', () => {
       render(<PokemonSkeletonCard />);
 
       const title = screen.getByText('Pokemon');

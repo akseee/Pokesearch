@@ -14,7 +14,7 @@
     "prepare": "husky && chmod ug+x .husky/*",
     "check:fix": "npm run lint:fix && npm run format:fix",
     "deploy": "npm run build && gh-pages -d dist ",
-    "coverage": "vitest run --coverage",
+    "test:coverage": "vitest run --coverage",
     "test": "vitest"
   },
   "dependencies": {

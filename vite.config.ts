@@ -5,6 +5,14 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   base: '/Pokesearch/',
+  server: {
+    proxy: {
+      '/mockServiceWorker.js': {
+        target: 'http://localhost:5173',
+        rewrite: () => '/Pokesearch/mockServiceWorker.js',
+      },
+    },
+  },
   test: {
     environment: 'jsdom',
     setupFiles: './src/setupTests.ts',
@@ -15,6 +23,7 @@ export default defineConfig({
       reporter: ['text', 'html'],
       all: true,
       exclude: [
+        'public',
         'node_modules/',
         'dist/',
         'src/main.{js,jsx,ts,tsx}',

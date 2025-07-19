@@ -1,7 +1,7 @@
 import type { ApiResponse, NamedAPIResource } from '../types/api';
 
 export async function fetchPokemonsAPI(
-  query: string
+  query?: string
 ): Promise<ApiResponse<NamedAPIResource>> {
   if (query) {
     const response = await fetch(
@@ -17,7 +17,7 @@ export async function fetchPokemonsAPI(
       results: [
         {
           name: data.name,
-          url: `https://pokeapi.co/api/v2/pokemon/${data.id}/`,
+          url: `https://pokeapi.co/api/v2/pokemon/${data.name}/`,
         },
       ],
     };

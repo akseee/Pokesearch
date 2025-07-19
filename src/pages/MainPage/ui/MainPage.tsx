@@ -3,7 +3,7 @@ import { ErrorButton } from '../../../features/ErrorButton';
 import { ResultList } from '../../../widgets/ResultsList/ui/ResultList';
 import { SearchForm } from '../../../features/SearchForm';
 import { queryLocalStorage } from '../../../shared/lib/queryLocalStorage';
-import { fetchPokemonsAPI } from '../../../shared/api/searchApi';
+import { fetchPokemonsAPI } from '../../../shared/api/fetchPokemonsAPI';
 import type { NamedAPIResource } from '../../../shared/types/api';
 import styles from './MainPage.module.css';
 import { ErrorBoundary } from '../../../shared/ui/errorBoundary/ErrorBoundary';
@@ -60,7 +60,7 @@ export class MainPage extends Component {
           <ErrorButton />
         </ErrorBoundary>
         {this.state.isLoading && (
-          <div className={styles.loader}>
+          <div className={styles.loader} data-testid="loader">
             <Loader />
           </div>
         )}

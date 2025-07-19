@@ -60,7 +60,7 @@ export class MainPage extends Component {
           <ErrorButton />
         </ErrorBoundary>
         {this.state.isLoading && (
-          <div className={styles.loader}>
+          <div className={styles.loader} data-testid="loader">
             <Loader />
           </div>
         )}

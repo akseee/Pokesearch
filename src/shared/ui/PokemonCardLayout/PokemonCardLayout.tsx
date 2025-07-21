@@ -11,9 +11,11 @@ interface PokemonCardLayoutProps {
   type: string;
   title: string;
   stats?: PokemonStats;
+  onClick?: () => void;
 }
 
 export const PokemonCardLayout = ({
+  onClick,
   loading = false,
   image,
   order,
@@ -21,7 +23,11 @@ export const PokemonCardLayout = ({
   title,
   stats,
 }: PokemonCardLayoutProps) => (
-  <li id={title.toLowerCase()} className={styles['card-layout-wrapper']}>
+  <li
+    id={title.toLowerCase()}
+    className={styles['card-layout-wrapper']}
+    onClick={onClick}
+  >
     <Fragment>
       <div className={styles['image-container']}>
         {loading ? (

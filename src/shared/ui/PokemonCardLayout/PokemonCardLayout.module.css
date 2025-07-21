@@ -22,8 +22,10 @@
 }
 
 .image-container {
-  min-width: 160px;
-  min-height: 160px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
 }
 
 .image {

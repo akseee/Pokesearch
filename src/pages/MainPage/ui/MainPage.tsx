@@ -1,45 +1,44 @@
-import { ErrorButton } from '../../../features/ErrorButton';
 import { ResultList } from '../../../widgets/ResultsList/ui/ResultList';
 import { SearchForm } from '../../../features/SearchForm';
 import styles from './MainPage.module.css';
-import { ErrorBoundary } from '../../../shared/ui/errorBoundary/ErrorBoundary';
-import { useState } from 'react';
 import { queryLocalStorage } from '../../../shared/lib/queryLocalStorage';
 import { usePokemonsListData } from '../../../entities/pokemon/model/usePokemonListData';
 import { Loader } from '../../../shared/ui/Loader/Loader';
 import { Pagination } from '../../../features/Pagination';
+import { useSearchQueryParams } from '../model/useSearchQueryParams';
 
 export const MainPage = () => {
-  const [query, setQuery] = useState(queryLocalStorage().getQuery());
-  // const { pokemon } = useParams();
-  const [currentPage, setCurrentPage] = useState(1);
+  const { query, page, setQuery, setPage } = useSearchQueryParams();
 
-  const { pokemonsData, isLoading, error } = usePokemonsListData(query);
+  const { pokemonsData, isLoading, error } = usePokemonsListData(query, page);
 
-  const onSearch = (newQuery: string) => {
+  const handleSearch = (newQuery: string) => {
     setQuery(newQuery);
     queryLocalStorage().setQuery(newQuery);
   };
 
-  const onPageChange = (newPage: number) => {
-    setCurrentPage(newPage);
-    console.log(newPage);
-    // fecth
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
   };
 
   return (
     <div className={styles.wrapper}>
-      <SearchForm query={query} onSubmit={onSearch} />
+      <SearchForm query={query} onSubmit={handleSearch} />
+
       <Pagination
-        page={currentPage}
-        totalPages={2}
-        onPageChange={onPageChange}
+        page={page}
+        totalPages={(pokemonsData && Math.ceil(pokemonsData?.count / 20)) || 1}
+        onPageChange={handlePageChange}
       />
-      <ErrorBoundary>
-        {error && <div>Error: {error}</div>}
-        <ResultList pokemons={pokemonsData} isLoading={isLoading} />
-        <ErrorButton />
-      </ErrorBoundary>
+
+      <div className={styles.section}>
+        <ResultList
+          pokemons={pokemonsData?.results || []}
+          isLoading={isLoading}
+          error={error}
+        />
+      </div>
+
       {isLoading && (
         <div className={styles.loader} data-testid="loader">
           <Loader />

@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
-import type { NamedAPIResource } from '../../../shared/types/api';
+import type { ApiResponse, NamedAPIResource } from '../../../shared/types/api';
 import { fetchPokemonsAPI } from '../../../shared/api/fetchPokemonsAPI';
+import { initialStateApiResponse } from '../../../shared/lib/constants';
 
-export const usePokemonsListData = (query: string) => {
-  const [pokemonsData, setPokemonsData] = useState<NamedAPIResource[]>([]);
+export const usePokemonsListData = (query: string, page: number) => {
+  const [pokemonsData, setPokemonsData] =
+    useState<ApiResponse<NamedAPIResource>>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -13,17 +15,18 @@ export const usePokemonsListData = (query: string) => {
       setError(null);
 
       try {
-        const data = await fetchPokemonsAPI(query);
-        setPokemonsData(data.results);
+        const data = await fetchPokemonsAPI(query, page);
+
+        setPokemonsData(data);
       } catch (e) {
         setError((e as Error).message);
-        setPokemonsData([]);
+        setPokemonsData(initialStateApiResponse);
       } finally {
         setIsLoading(false);
       }
     }
     fetchData();
-  }, [query]);
+  }, [query, page]);
 
   return { pokemonsData, isLoading, error };
 };

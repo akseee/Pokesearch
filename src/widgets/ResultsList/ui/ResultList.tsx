@@ -6,9 +6,10 @@ import styles from './ResultList.module.css';
 interface ResultListProps {
   isLoading: boolean;
   pokemons: NamedAPIResource[];
+  error?: string | null;
 }
 
-export const ResultList = ({ pokemons, isLoading }: ResultListProps) => {
+export const ResultList = ({ pokemons, isLoading, error }: ResultListProps) => {
   const MIN_COUNT = 8;
 
   const cards = pokemons?.map((pokemon: NamedAPIResource) => (
@@ -19,7 +20,7 @@ export const ResultList = ({ pokemons, isLoading }: ResultListProps) => {
     <PokemonSkeletonCard key={`skeleton-${i}`} />
   ));
 
-  if (!isLoading && pokemons?.length === 0) {
+  if (error && !isLoading) {
     return (
       <div className={styles.empty}>
         <p>No Pokémon found...</p>

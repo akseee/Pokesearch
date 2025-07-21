@@ -1,7 +1,8 @@
 import type { ApiResponse, NamedAPIResource } from '../types/api';
 
 export async function fetchPokemonsAPI(
-  query?: string
+  query?: string,
+  page?: number
 ): Promise<ApiResponse<NamedAPIResource>> {
   if (query) {
     const response = await fetch(
@@ -12,8 +13,6 @@ export async function fetchPokemonsAPI(
 
     return {
       count: 1,
-      next: null,
-      previous: null,
       results: [
         {
           name: data.name,
@@ -22,6 +21,12 @@ export async function fetchPokemonsAPI(
       ],
     };
   }
-  const response = await fetch('https://pokeapi.co/api/v2/pokemon');
+
+  const offset = page && page > 1 ? (page - 1) * 20 : 0;
+  const url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offset}`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) throw new Error('Failed to fetch Pokémon list');
   return await response.json();
 }

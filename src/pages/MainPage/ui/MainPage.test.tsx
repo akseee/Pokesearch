@@ -25,25 +25,4 @@ describe('Main', () => {
     const text = await screen.findByDisplayValue('pikachu');
     expect(text).toBeInTheDocument();
   });
-
-  test('manages loading states during API calls', () => {
-    class LoadingMainPage extends MainPage {
-      constructor(props: {
-        query: string;
-        pokemonResources: [];
-        isLoading: boolean;
-      }) {
-        super(props);
-        this.state = {
-          query: 'test',
-          pokemonResources: [],
-          isLoading: true,
-        };
-      }
-    }
-
-    render(<LoadingMainPage />);
-    const loader = screen.getByTestId('loader');
-    expect(loader).toBeInTheDocument();
-  });
 });

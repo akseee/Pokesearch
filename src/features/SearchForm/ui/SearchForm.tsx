@@ -1,32 +1,34 @@
-import { Component, type ChangeEvent, type FormEvent } from 'react';
-import type { SearchFormProps } from '../model/types';
+import { useState, type ChangeEvent, type FormEvent } from 'react';
 import styles from './SearchForm.module.css';
 
-export class SearchForm extends Component<SearchFormProps> {
-  handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    this.props.onChange(value);
+export const SearchForm = ({
+  query = '',
+  onSubmit,
+}: {
+  query?: string;
+  onSubmit: (query: string) => void;
+}) => {
+  const [searchQuery, setSearchQuery] = useState(query);
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
   };
 
-  handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    this.props.onSearch();
+    onSubmit(searchQuery.trim());
   };
 
-  render() {
-    const { value, inputPlaceholder, buttonText = 'Search' } = this.props;
-
-    return (
-      <form className={styles.form} onSubmit={this.handleSubmit}>
-        <input
-          id="search"
-          type="text"
-          value={value}
-          onChange={this.handleInputChange}
-          placeholder={inputPlaceholder || 'Search.…'}
-        />
-        <button type="submit">{buttonText}</button>
-      </form>
-    );
-  }
-}
+  return (
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <input
+        id="search"
+        type="text"
+        value={searchQuery}
+        onChange={handleInputChange}
+        placeholder="Search…"
+      />
+      <button type="submit">Find!</button>
+    </form>
+  );
+};

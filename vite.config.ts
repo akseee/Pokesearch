@@ -4,12 +4,12 @@ import react from '@vitejs/plugin-react';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/Pokesearch/',
+  base: '/pokesearch/',
   server: {
     proxy: {
       '/mockServiceWorker.js': {
         target: 'http://localhost:5173',
-        rewrite: () => '/Pokesearch/mockServiceWorker.js',
+        rewrite: () => '/pokesearch/mockServiceWorker.js',
       },
     },
   },

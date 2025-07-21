@@ -2,7 +2,7 @@
   "name": "package",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://akseee.github.io/Pokesearch",
+  "homepage": "https://akseee.github.io/pokesearch",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,7 +19,8 @@
   },
   "dependencies": {
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-router": "^7.7.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",

@@ -1,12 +1,8 @@
-import { MainPage } from '../pages/MainPage/ui/MainPage';
 import '../shared/styles';
+import { Router } from './router/Router';
 
-function App() {
-  return (
-    <>
-      <MainPage />
-    </>
-  );
-}
+export const App = (): React.JSX.Element => {
+  return <Router />;
+};
 
 export default App;

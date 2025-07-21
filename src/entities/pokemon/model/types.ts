@@ -1,3 +1,5 @@
+import type { PokemonData } from '../../../shared/types/pokemon';
+
 export interface RawPokemonResponse {
   name: string;
   id: number;
@@ -14,4 +16,10 @@ export interface RawPokemonResponse {
   };
   types: { type: { name: string } }[];
   stats: { base_stat: number; stat: { name: string } }[];
+}
+
+export interface PokemonCardState {
+  pokemonData: PokemonData | null;
+  isLoading: boolean;
+  error: string | null;
 }

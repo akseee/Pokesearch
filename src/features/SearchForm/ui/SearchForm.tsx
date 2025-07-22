@@ -19,6 +19,11 @@ export const SearchForm = ({
     onSubmit(searchQuery.trim());
   };
 
+  const handleClear = () => {
+    setSearchQuery('');
+    onSubmit('');
+  };
+
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <input
@@ -29,6 +34,9 @@ export const SearchForm = ({
         placeholder="Search…"
       />
       <button type="submit">Find!</button>
+      <button onClick={handleClear} className={styles.clear}>
+        Clear
+      </button>
     </form>
   );
 };

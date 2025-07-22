@@ -4,8 +4,8 @@ import styles from './MainPage.module.css';
 import { usePokemonsListData } from '../../../entities/pokemon/model/usePokemonListData';
 import { Loader } from '../../../shared/ui/Loader/Loader';
 import { Pagination } from '../../../features/Pagination';
-import { useSearchQueryParams } from '../model/useSearchQueryParams';
 import { Outlet, useParams } from 'react-router';
+import { useSearchQueryParams } from '../../../shared/hooks/useSearchQueryParams';
 
 export const MainPage = () => {
   const { query, page, setQuery, setPage } = useSearchQueryParams();
@@ -24,7 +24,6 @@ export const MainPage = () => {
   return (
     <div className={styles.wrapper}>
       <SearchForm query={query} onSubmit={handleSearch} />
-
       <Pagination
         page={page}
         totalPages={(pokemonsData && Math.ceil(pokemonsData?.count / 20)) || 1}

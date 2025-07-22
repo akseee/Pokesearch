@@ -1,16 +1,28 @@
 .form {
   position: sticky;
-  top: 0;
+  top: 75px;
   z-index: 10;
   display: flex;
   gap: 1em;
   border-radius: 0 0 var(--border-radius) var(--border-radius);
-  padding: 1.25rem 3rem;
+  padding: 0rem 3rem 1em;
   box-shadow: var(--shadow-md);
   color: var(--text-on-red);
   font-weight: 700;
   font-size: 1.5rem;
   background: var(--bg-header);
+}
+
+.clear {
+  opacity: 0.5;
+  color: var(--color-white);
+  font-weight: normal;
+  background-color: var(--color-yellow-dark);
+  transition: opacity 0.3s ease-in-out;
+}
+
+.clear:hover {
+  opacity: 1;
 }
 
 @media (max-width: 768px) {

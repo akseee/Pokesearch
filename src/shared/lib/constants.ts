@@ -8,4 +8,6 @@ export const initialStateApiResponse: ApiResponse<NamedAPIResource> = {
   results: [],
 };
 
-export const URL_PARAMS = {};
+export const STORAGE_KEYS = {
+  POKEMON_QUERY: 'pokemon-query',
+} as const;

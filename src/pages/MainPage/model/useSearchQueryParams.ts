@@ -1,12 +1,27 @@
 import { useSearchParams } from 'react-router';
+import { STORAGE_KEYS } from '../../../shared/lib/constants';
+import { useEffect } from 'react';
+import { useLocalStorage } from '../../../shared/lib/useLocalStorage';
 
 export function useSearchQueryParams() {
   const [params, setParams] = useSearchParams();
+  const { queryLS, setQueryLS } = useLocalStorage(STORAGE_KEYS.POKEMON_QUERY);
 
   const query = params.get('query') ?? '';
   const page = Number(params.get('page')) || 1;
 
+  useEffect(() => {
+    if (!query && queryLS) {
+      setParams((prev) => {
+        prev.set('query', queryLS);
+        prev.set('page', '1');
+        return prev;
+      });
+    }
+  }, [query, queryLS, setParams]);
+
   const setQuery = (newQuery: string) => {
+    setQueryLS(newQuery);
     setParams((prev) => {
       prev.set('query', newQuery);
       prev.set('page', '1');

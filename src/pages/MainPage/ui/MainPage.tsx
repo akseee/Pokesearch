@@ -1,7 +1,6 @@
 import { ResultList } from '../../../widgets/ResultsList/ui/ResultList';
 import { SearchForm } from '../../../features/SearchForm';
 import styles from './MainPage.module.css';
-import { queryLocalStorage } from '../../../shared/lib/queryLocalStorage';
 import { usePokemonsListData } from '../../../entities/pokemon/model/usePokemonListData';
 import { Loader } from '../../../shared/ui/Loader/Loader';
 import { Pagination } from '../../../features/Pagination';
@@ -16,7 +15,6 @@ export const MainPage = () => {
 
   const handleSearch = (newQuery: string) => {
     setQuery(newQuery);
-    queryLocalStorage().setQuery(newQuery);
   };
 
   const handlePageChange = (newPage: number) => {

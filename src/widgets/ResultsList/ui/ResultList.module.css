@@ -1,9 +1,8 @@
 .result-wrapper {
   display: grid;
   flex: 1 1 auto;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: 1em;
-  padding: 0 2em;
 }
 
 .empty {
@@ -12,22 +11,4 @@
   font-weight: bold;
   font-size: 2em;
   text-align: center;
-}
-
-@media (max-width: 1024px) {
-  .result-wrapper {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .result-wrapper {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 425px) {
-  .result-wrapper {
-    grid-template-columns: repeat(1, 1fr);
-  }
 }

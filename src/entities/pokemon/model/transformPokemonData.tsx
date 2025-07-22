@@ -2,7 +2,10 @@ import { getPokemonStats } from '../../../shared/lib/getPokemonStats';
 import type { PokemonData } from '../../../shared/types/pokemon';
 import type { RawPokemonResponse } from './types';
 
-export function tranformPokemonData(raw: RawPokemonResponse): PokemonData {
+export function tranformPokemonData(
+  raw: RawPokemonResponse,
+  description: string | null
+): PokemonData {
   const statMap: Record<string, number> = {};
 
   for (const s of raw.stats) {
@@ -30,6 +33,9 @@ export function tranformPokemonData(raw: RawPokemonResponse): PokemonData {
     type: raw.types[0]?.type.name || 'unknown',
     image,
     stats: statsObj,
+    description:
+      description ||
+      'This mysterious Pokémon eludes our research — its secrets remain hidden in the shadows. Perhaps one day, brave trainers will unveil its true nature!',
   };
 
   return result;

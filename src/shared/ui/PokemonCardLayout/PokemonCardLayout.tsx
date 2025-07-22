@@ -11,6 +11,7 @@ interface PokemonCardLayoutProps {
   type: string;
   title: string;
   stats?: PokemonStats;
+  description?: string;
   onClick?: () => void;
 }
 
@@ -21,6 +22,7 @@ export const PokemonCardLayout = ({
   order,
   type,
   title,
+  description,
   stats,
 }: PokemonCardLayoutProps) => (
   <li
@@ -39,11 +41,12 @@ export const PokemonCardLayout = ({
         )}
       </div>
       <div className={styles.title}>{title}</div>
+      {description && <p className={styles.description}>{description}</p>}
       <div className={styles.order}>
         {`#${order.toString().padStart(3, '0')}`}
       </div>
       <div className={styles.type}>{type}</div>
-      <PokemonStatsList stats={stats} />
+      {description && <PokemonStatsList stats={stats} />}
     </Fragment>
   </li>
 );

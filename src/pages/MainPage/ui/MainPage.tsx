@@ -6,9 +6,11 @@ import { usePokemonsListData } from '../../../entities/pokemon/model/usePokemonL
 import { Loader } from '../../../shared/ui/Loader/Loader';
 import { Pagination } from '../../../features/Pagination';
 import { useSearchQueryParams } from '../model/useSearchQueryParams';
+import { Outlet, useParams } from 'react-router';
 
 export const MainPage = () => {
   const { query, page, setQuery, setPage } = useSearchQueryParams();
+  const { pokemon } = useParams();
 
   const { pokemonsData, isLoading, error } = usePokemonsListData(query, page);
 
@@ -31,12 +33,19 @@ export const MainPage = () => {
         onPageChange={handlePageChange}
       />
 
-      <div className={styles.section}>
-        <ResultList
-          pokemons={pokemonsData?.results || []}
-          isLoading={isLoading}
-          error={error}
-        />
+      <div className={`${styles.section} ${pokemon ? styles.detailed : ''}`}>
+        <div className={styles['left-column']}>
+          <ResultList
+            pokemons={pokemonsData?.results || []}
+            isLoading={isLoading}
+            error={error}
+          />
+        </div>
+        {pokemon && (
+          <div className={styles['right-column']}>
+            <Outlet />
+          </div>
+        )}
       </div>
 
       {isLoading && (

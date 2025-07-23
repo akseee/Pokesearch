@@ -1,8 +1,9 @@
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import styles from './Header.module.css';
 
 export const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleMainClick = () => {
     navigate('/');
@@ -17,9 +18,11 @@ export const Header = () => {
         <p className={styles.text}>Explore the Pokémon universe</p>
       </div>
       <div className={styles['button-wrapper']}>
-        <button className={styles.list} onClick={handleMainClick}>
-          Main
-        </button>
+        {location.pathname !== '/' && (
+          <button className={styles.list} onClick={handleMainClick}>
+            Main
+          </button>
+        )}
         <button className={styles.about} onClick={() => navigate('/about')}>
           About
         </button>

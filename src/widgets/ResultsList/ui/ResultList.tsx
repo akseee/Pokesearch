@@ -10,7 +10,7 @@ interface ResultListProps {
 }
 
 export const ResultList = ({ pokemons, isLoading, error }: ResultListProps) => {
-  const MIN_COUNT = 8;
+  const MIN_COUNT = 16;
 
   const cards = pokemons?.map((pokemon: NamedAPIResource) => (
     <PokemonCard pokemon={pokemon} key={pokemon.name} />

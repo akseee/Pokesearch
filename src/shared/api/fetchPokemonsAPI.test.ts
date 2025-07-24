@@ -26,6 +26,8 @@ describe('Fetch Pokemons API', () => {
   });
 
   test('returns error when no query is found', async () => {
-    expect(fetchPokemonsAPI('notfound')).rejects.toThrow('No Pokémon found');
+    await expect(fetchPokemonsAPI('notfound')).rejects.toThrow(
+      'No Pokémon found'
+    );
   });
 });

@@ -36,6 +36,8 @@ export default defineConfig({
         '**/*.config.ts',
         '**/*.config.ts',
         'eslint.config.js',
+        'src/app/',
+        'src/shared/config',
       ],
       thresholds: {
         global: {

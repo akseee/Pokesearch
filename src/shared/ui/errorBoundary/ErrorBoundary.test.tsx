@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
-import { ErrorBoundary } from './ErrorBoundary';
 import { Component } from 'react';
+import { ErrorBoundary } from './ErrorBoundary';
+import { render, screen } from '@testing-library/react';
 
 class ForceError extends Component {
   condition = true;

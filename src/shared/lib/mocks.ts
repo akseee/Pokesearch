@@ -1,4 +1,4 @@
-import type { NamedAPIResource } from '../types/api';
+import type { NamedAPIResource } from '../types/api.types';
 
 export const mockPokemonResponse = {
   name: 'pikachu',
@@ -7,7 +7,7 @@ export const mockPokemonResponse = {
   sprites: {
     other: {
       'official-artwork': { front_default: 'image-url' },
-      dream_world: { front_default: null },
+      dream_world: { front_default: undefined },
     },
   },
   types: [{ type: { name: 'electric' } }],

@@ -19,9 +19,9 @@ describe('Fetch Pokemons API', () => {
 
     expect(res.count).toBe(1);
     expect(res.results).toHaveLength(1);
-    expect(res.results[0].name).toBe('pokemon1');
+    expect(res.results[0].name).toBe('pikachu');
     expect(res.results[0].url).toBe(
-      'https://pokeapi.co/api/v2/pokemon/pokemon1/'
+      'https://pokeapi.co/api/v2/pokemon/pikachu/'
     );
   });
 

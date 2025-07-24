@@ -1,115 +1,58 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { SearchForm } from './SearchForm';
-
-const STORAGE_KEY = 'testKey';
+import userEvent from '@testing-library/user-event';
 
 describe('SearchForm ', () => {
-  let onChangeMock: (value: string) => void;
-  let onSearchMock: () => void;
-  let currentValue: string;
+  test('renders search input, search and clear buttons', () => {
+    render(<SearchForm query="initial" onSubmit={vi.fn()} />);
+    const input: HTMLInputElement = screen.getByPlaceholderText('Search…');
+    const searchButton = screen.getByRole('button', { name: /find/i });
+    const clearButton = screen.getByRole('button', { name: /clear/i });
 
-  beforeEach(() => {
-    vi.clearAllMocks();
-    localStorage.clear();
-    currentValue = '';
-    onChangeMock = (val: string) => {
-      currentValue = val;
-    };
-    onSearchMock = vi.fn(() =>
-      localStorage.setItem(STORAGE_KEY, currentValue.trim())
-    );
+    expect(input.value).toBe('initial');
+    expect(searchButton).toBeInTheDocument();
+    expect(clearButton).toBeInTheDocument();
   });
 
-  afterEach(() => {
-    vi.clearAllMocks();
+  test('shows empty input when no saved term exists', () => {
+    render(<SearchForm onSubmit={vi.fn()} />);
+
+    const input: HTMLInputElement = screen.getByRole('textbox');
+    expect(input.value).toBe('');
   });
 
-  describe('Rendering Tests', () => {
-    test('renders search input and search button', () => {
-      render(
-        <SearchForm
-          value=""
-          onChange={onChangeMock}
-          onSearch={onSearchMock}
-          inputPlaceholder="Search…"
-        />
-      );
-      const input = screen.getByPlaceholderText('Search…');
-      const button = screen.getByRole('button', { name: /search/i });
+  test('updates input value when user types', async () => {
+    render(<SearchForm onSubmit={vi.fn()} />);
+    const user = userEvent.setup();
+    const input: HTMLInputElement = screen.getByRole('textbox');
 
-      expect(input).toBeInTheDocument();
-      expect(button).toBeInTheDocument();
-    });
+    await user.type(input, 'test');
 
-    test('shows empty input when no saved term exists', () => {
-      const savedValue = localStorage.getItem(STORAGE_KEY) ?? '';
-      render(
-        <SearchForm
-          value={savedValue}
-          onChange={onChangeMock}
-          onSearch={onSearchMock}
-          inputPlaceholder="Search…"
-        />
-      );
-
-      const input: HTMLInputElement = screen.getByRole('textbox');
-      expect(input.value).toBe('');
-    });
+    expect(input.value).toBe('test');
   });
 
-  describe('LocalStorage Integration', () => {
-    test('displays previously saved search term from localStorage on mount ', () => {
-      localStorage.setItem(STORAGE_KEY, 'test');
+  test('calls onSubmit and trims input on form submit', async () => {
+    const onSubmit = vi.fn();
+    render(<SearchForm onSubmit={onSubmit} />);
+    const user = userEvent.setup();
 
-      const savedValue = localStorage.getItem(STORAGE_KEY) ?? '';
+    const input = screen.getByPlaceholderText('Search…') as HTMLInputElement;
 
-      render(
-        <SearchForm
-          value={savedValue}
-          onChange={onChangeMock}
-          onSearch={onSearchMock}
-          inputPlaceholder="Search…"
-        />
-      );
-      const input: HTMLInputElement = screen.getByRole('textbox');
-      expect(input.value).toBe('test');
-    });
+    await user.type(input, '  test  ');
+    await user.click(screen.getByRole('button', { name: /find/i }));
 
-    test('overwrites existing localStorage value when new search is performed and saves search term to localStorage when search button is clicked', () => {
-      localStorage.setItem(STORAGE_KEY, 'oldValue');
-
-      render(
-        <SearchForm
-          value={currentValue}
-          onChange={onChangeMock}
-          onSearch={onSearchMock}
-          inputPlaceholder="Search…"
-        />
-      );
-      const input = screen.getByRole('textbox');
-      const button = screen.getByRole('button', { name: /search/i });
-
-      fireEvent.change(input, { target: { value: '  newValue  ' } });
-      fireEvent.click(button);
-
-      expect(localStorage.getItem(STORAGE_KEY)).toBe('newValue');
-      expect(onSearchMock).toHaveBeenCalledOnce();
-    });
+    expect(onSubmit).toHaveBeenCalledWith('test');
   });
 
-  describe('User Interaction Tests', () => {
-    test('updates input value when user types', () => {
-      render(
-        <SearchForm
-          value={currentValue}
-          onChange={onChangeMock}
-          onSearch={onSearchMock}
-          inputPlaceholder="Search…"
-        />
-      );
-      const input: HTMLInputElement = screen.getByRole('textbox');
-      fireEvent.change(input, { target: { value: 'new search' } });
-      expect(currentValue).toBe('new search');
-    });
+  test('clears value written in inout', async () => {
+    render(<SearchForm onSubmit={vi.fn()} query={'value'} />);
+    const user = userEvent.setup();
+
+    const input = screen.getByPlaceholderText('Search…') as HTMLInputElement;
+    const clearButton = screen.getByRole('button', { name: /clear/i });
+
+    await user.click(clearButton);
+
+    expect(input.value).toBe('');
   });
 });

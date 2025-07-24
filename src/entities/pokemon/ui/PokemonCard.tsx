@@ -1,7 +1,7 @@
 import { PokemonSkeletonCard } from './PokemonCardSkeleton';
 import { PokemonCardLayout } from '../../../shared/ui/PokemonCardLayout/PokemonCardLayout';
 import { usePokemonData } from '../model/usePokemonData';
-import type { NamedAPIResource } from '../../../shared/types/api';
+import type { NamedAPIResource } from '../../../shared/types/api.types';
 import { useLocation, useNavigate } from 'react-router';
 
 export const PokemonCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {

@@ -1,5 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter } from 'react-router';
 import { PokemonCard } from './PokemonCard';
+import { render, screen, waitFor } from '@testing-library/react';
+import { mockCardData } from '../../../shared/lib/mocks';
 
 vi.mock('../../../shared/ui/PokemonCardLayout/PokemonCardLayout', () => ({
   PokemonCardLayout: ({
@@ -23,39 +25,22 @@ vi.mock('./PokemonCardSkeleton', () => ({
   PokemonSkeletonCard: () => <div data-testid="loading" />,
 }));
 
-const mockApiData = {
-  name: 'pikachu',
-  id: 25,
-  order: 25,
-  types: [{ type: { name: 'electric' } }],
-  sprites: {
-    other: {
-      'official-artwork': { front_default: 'image-url' },
-      dream_world: { front_default: null },
-    },
-  },
-  stats: [
-    { stat: { name: 'hp' }, base_stat: 35 },
-    { stat: { name: 'attack' }, base_stat: 55 },
-    { stat: { name: 'defense' }, base_stat: 40 },
-    { stat: { name: 'speed' }, base_stat: 90 },
-    { stat: { name: 'special-attack' }, base_stat: 50 },
-    { stat: { name: 'special-defense' }, base_stat: 50 },
-  ],
-};
-
 describe('PokemonCard', () => {
   test('displays item name and description correctly', async () => {
     globalThis.fetch = vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => mockApiData,
+      json: async () => mockCardData,
     });
 
     render(
-      <PokemonCard
-        name="pikachu"
-        url="https://pokeapi.co/api/v2/pokemon/pikachu"
-      />
+      <MemoryRouter>
+        <PokemonCard
+          pokemon={{
+            name: 'pikachu',
+            url: 'https://pokeapi.co/api/v2/pokemon/pikachu',
+          }}
+        />
+      </MemoryRouter>
     );
 
     await waitFor(() => {

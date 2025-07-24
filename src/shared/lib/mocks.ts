@@ -26,6 +26,29 @@ export const mockSpeciesResponse = {
   ],
 };
 
+export const mockCardData = {
+  name: 'pikachu',
+  id: 25,
+  order: 25,
+  sprites: {
+    other: {
+      'official-artwork': { front_default: 'image-url' },
+      dream_world: { front_default: undefined },
+    },
+  },
+  types: [{ type: { name: 'electric' } }],
+  stats: [
+    { base_stat: 35, stat: { name: 'hp' } },
+    { base_stat: 55, stat: { name: 'attack' } },
+  ],
+  flavor_text_entries: [
+    {
+      flavor_text: 'This is a test description',
+      language: { name: 'en' },
+    },
+  ],
+};
+
 export const mockPokemonSource: NamedAPIResource = {
   name: 'pikachu',
   url: 'https://pokeapi.co/api/v2/pokemon/pikachu',

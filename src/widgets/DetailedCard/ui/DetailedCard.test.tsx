@@ -1,4 +1,5 @@
 const mockUsePokemonData = vi.fn();
+const mockNavigate = vi.fn();
 
 vi.mock('../../../entities/pokemon/model/usePokemonData', () => ({
   usePokemonData: (name: string) => mockUsePokemonData(name),
@@ -8,6 +9,18 @@ import { MemoryRouter } from 'react-router';
 import { mockDetailedCardData } from '../../../shared/lib/mocks';
 import { render, screen } from '@testing-library/react';
 import { DetailedCard } from './DetailedCard';
+import userEvent from '@testing-library/user-event';
+
+vi.mock('react-router', async () => {
+  const actual =
+    await vi.importActual<typeof import('react-router')>('react-router');
+  return {
+    ...actual,
+    useParams: () => ({ pokemon: 'pikachu' }),
+    useLocation: () => ({ search: '?query=pikachu' }),
+    useNavigate: () => mockNavigate,
+  };
+});
 
 vi.mock('../../../shared/ui/PokemonCardLayout/PokemonCardLayout', () => ({
   PokemonCardLayout: ({
@@ -68,5 +81,29 @@ describe('DetailedCard', () => {
     );
 
     expect(screen.getByText('Error loading Pokémon')).toBeInTheDocument();
+  });
+
+  test('calls navigate when close button clicked', async () => {
+    mockUsePokemonData.mockReturnValue({
+      pokemonData: mockDetailedCardData,
+      isLoading: false,
+      error: null,
+    });
+
+    render(
+      <MemoryRouter>
+        <DetailedCard />
+      </MemoryRouter>
+    );
+
+    const user = userEvent.setup();
+    const closeButton = screen.getByRole('button');
+
+    await user.click(closeButton);
+
+    expect(mockNavigate).toHaveBeenCalledWith({
+      pathname: '/',
+      search: '?query=pikachu',
+    });
   });
 });

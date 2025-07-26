@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import type { PokemonStats } from '../../types/pokemon';
+import type { PokemonStats } from '../../types/pokemon.types';
 import styles from './PokemonCardLayout.module.css';
 
 interface PokemonStatsListProps {

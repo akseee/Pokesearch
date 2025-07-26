@@ -1,0 +1,14 @@
+.result-wrapper {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 1em;
+}
+
+.empty {
+  flex: 1 1 auto;
+  width: 100%;
+  font-weight: bold;
+  font-size: 2em;
+  text-align: center;
+}

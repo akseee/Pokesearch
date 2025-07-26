@@ -1,5 +1,5 @@
 import type { RawPokemonResponse } from '../../entities/pokemon/model/types';
-import type { PokemonStats } from '../types/pokemon';
+import type { PokemonStats } from '../types/pokemon.types';
 
 export function getPokemonStats(
   raw: RawPokemonResponse,

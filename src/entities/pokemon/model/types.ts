@@ -1,4 +1,4 @@
-import type { PokemonData } from '../../../shared/types/pokemon';
+import type { PokemonData } from '../../../shared/types/pokemon.types';
 
 export interface RawPokemonResponse {
   name: string;

@@ -1,4 +1,4 @@
-import type { PokemonData } from '../types/pokemon';
+import type { PokemonData } from '../types/pokemon.types';
 
 const cache = new Map<string, PokemonData>();
 

@@ -1,5 +1,5 @@
 import { getPokemonStats } from '../../../shared/lib/getPokemonStats';
-import type { PokemonData } from '../../../shared/types/pokemon';
+import type { PokemonData } from '../../../shared/types/pokemon.types';
 import type { RawPokemonResponse } from './types';
 
 export function tranformPokemonData(

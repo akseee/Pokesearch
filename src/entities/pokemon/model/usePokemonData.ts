@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import type {
   PokemonData,
   RawPokemonSpeciesResponse,
-} from '../../../shared/types/pokemon';
-import type { NamedAPIResource } from '../../../shared/types/api';
+} from '../../../shared/types/pokemon.types';
+import type { NamedAPIResource } from '../../../shared/types/api.types';
 import type { PokemonCardState, RawPokemonResponse } from './types';
 import { tranformPokemonData } from './transformPokemonData';
 import { pokemonCache } from '../../../shared/lib/cache';

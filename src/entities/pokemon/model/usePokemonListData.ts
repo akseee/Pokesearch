@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import type { ApiResponse, NamedAPIResource } from '../../../shared/types/api';
+import type {
+  ApiResponse,
+  NamedAPIResource,
+} from '../../../shared/types/api.types';
 import { fetchPokemonsAPI } from '../../../shared/api/fetchPokemonsAPI';
 import { initialStateApiResponse } from '../../../shared/lib/constants';
 

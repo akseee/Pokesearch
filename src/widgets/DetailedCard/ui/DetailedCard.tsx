@@ -39,7 +39,7 @@ export const DetailedCard = () => {
           title={pokemonData.name}
           description={pokemonData.description}
           stats={pokemonData.stats}
-        ></PokemonCardLayout>
+        />
       )}
     </>
   );

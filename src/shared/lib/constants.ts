@@ -1,4 +1,4 @@
-import type { ApiResponse, NamedAPIResource } from '../types/api';
+import type { ApiResponse, NamedAPIResource } from '../types/api.types';
 
 export const BASE_API = 'https://pokeapi.co/api/v2/pokemon/';
 export const SPECIES_API = 'https://pokeapi.co/api/v2/pokemon-species/';

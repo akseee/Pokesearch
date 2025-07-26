@@ -49,6 +49,19 @@ export const mockCardData = {
   ],
 };
 
+export const mockDetailedCardData = {
+  name: 'pikachu',
+  type: 'electric',
+  id: 25,
+  description: 'This is a test description',
+  image: 'image-url',
+  stats: [
+    { name: 'hp', value: 35 },
+    { name: 'attack', value: 55 },
+  ],
+  order: 25,
+};
+
 export const mockPokemonSource: NamedAPIResource = {
   name: 'pikachu',
   url: 'https://pokeapi.co/api/v2/pokemon/pikachu',

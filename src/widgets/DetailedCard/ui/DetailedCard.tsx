@@ -13,10 +13,12 @@ export const DetailedCard = () => {
   const location = useLocation();
 
   if (error) {
-    <div style={{ color: 'red', padding: 20, textAlign: 'center' }}>
-      <h2>Error loading Pokémon</h2>
-      <p>{error}</p>
-    </div>;
+    return (
+      <div style={{ color: 'red', padding: 20, textAlign: 'center' }}>
+        <h2>Error loading Pokémon</h2>
+        <p>{error}</p>
+      </div>
+    );
   }
 
   const handleCloseClick = () => {
@@ -31,7 +33,6 @@ export const DetailedCard = () => {
       </button>
       {pokemonData && (
         <PokemonCardLayout
-          onClick={() => console.log('click')}
           loading={isLoading}
           image={pokemonData.image}
           order={pokemonData.order}

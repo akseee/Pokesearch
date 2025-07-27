@@ -11,7 +11,7 @@ export const PokemonCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
 
   const handleClick = () => {
     const search = location.search;
-    navigate({ pathname: `/${pokemon.name}`, search });
+    navigate({ pathname: `/pokemon/${pokemon.name}`, search });
   };
 
   const card = pokemonData && (

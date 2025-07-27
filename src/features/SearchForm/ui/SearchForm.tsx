@@ -34,7 +34,11 @@ export const SearchForm = ({
         placeholder="Search…"
       />
       <button type="submit">Find!</button>
-      <button onClick={handleClear} className={styles.clear}>
+      <button
+        onClick={handleClear}
+        className={styles.clear}
+        disabled={searchQuery === ''}
+      >
         Clear
       </button>
     </form>

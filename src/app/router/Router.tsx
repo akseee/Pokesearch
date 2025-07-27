@@ -4,7 +4,7 @@ import { APP_PATHS } from '../../shared/config/routes/paths';
 import { MainPage } from '../../pages/MainPage/';
 import type { JSX } from 'react';
 import { AboutPage } from '../../pages/AboutPage';
-import { DetailedCard } from '../../widgets/DetailedCard';
+import { DetailedCard } from '../../pages/DetailedCardPage';
 import { Layout } from '../layout/Layout';
 
 export const Router = (): JSX.Element => {

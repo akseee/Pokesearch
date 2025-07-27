@@ -36,7 +36,7 @@ describe('SearchForm ', () => {
     render(<SearchForm onSubmit={onSubmit} />);
     const user = userEvent.setup();
 
-    const input = screen.getByPlaceholderText('Search…') as HTMLInputElement;
+    const input: HTMLInputElement = screen.getByPlaceholderText('Search…');
 
     await user.type(input, '  test  ');
     await user.click(screen.getByRole('button', { name: /find/i }));
@@ -48,7 +48,7 @@ describe('SearchForm ', () => {
     render(<SearchForm onSubmit={vi.fn()} query={'value'} />);
     const user = userEvent.setup();
 
-    const input = screen.getByPlaceholderText('Search…') as HTMLInputElement;
+    const input: HTMLInputElement = screen.getByPlaceholderText('Search…');
     const clearButton = screen.getByRole('button', { name: /clear/i });
 
     await user.click(clearButton);

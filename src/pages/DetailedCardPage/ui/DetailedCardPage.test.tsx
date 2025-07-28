@@ -8,8 +8,8 @@ vi.mock('../../../entities/pokemon/model/usePokemonData', () => ({
 import { MemoryRouter } from 'react-router';
 import { mockDetailedCardData } from '../../../shared/lib/mocks';
 import { render, screen } from '@testing-library/react';
-import { DetailedCard } from './DetailedCard';
 import userEvent from '@testing-library/user-event';
+import { DetailedCardPage } from './DetailedCardPage';
 
 vi.mock('react-router', async () => {
   const actual =
@@ -43,7 +43,7 @@ vi.mock('../../../shared/ui/PokemonCardLayout/PokemonCardLayout', () => ({
   ),
 }));
 
-describe('DetailedCard', () => {
+describe('DetailedCardPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -57,7 +57,7 @@ describe('DetailedCard', () => {
 
     render(
       <MemoryRouter>
-        <DetailedCard />
+        <DetailedCardPage />
       </MemoryRouter>
     );
 
@@ -76,7 +76,7 @@ describe('DetailedCard', () => {
 
     render(
       <MemoryRouter>
-        <DetailedCard />
+        <DetailedCardPage />
       </MemoryRouter>
     );
 
@@ -92,7 +92,7 @@ describe('DetailedCard', () => {
 
     render(
       <MemoryRouter>
-        <DetailedCard />
+        <DetailedCardPage />
       </MemoryRouter>
     );
 

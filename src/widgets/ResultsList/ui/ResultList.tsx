@@ -1,7 +1,7 @@
 import type { NamedAPIResource } from '../../../shared/types/api.types';
 import { PokemonSkeletonCard } from '../../../entities/pokemon/ui/PokemonCardSkeleton';
-import { PokemonCard } from '../../../entities/pokemon/ui/PokemonCard';
 import styles from './ResultList.module.css';
+import { ListCard } from '../../../entities/pokemon/ui/ListCard';
 
 interface ResultListProps {
   isLoading: boolean;
@@ -13,7 +13,7 @@ export const ResultList = ({ pokemons, isLoading, error }: ResultListProps) => {
   const MIN_COUNT = 16;
 
   const cards = pokemons?.map((pokemon: NamedAPIResource) => (
-    <PokemonCard pokemon={pokemon} key={pokemon.name} />
+    <ListCard pokemon={pokemon} key={pokemon.name} />
   ));
 
   const skeletons = Array.from({ length: MIN_COUNT }, (_, i) => (

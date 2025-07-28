@@ -111,14 +111,7 @@
 }
 
 @media (max-width: 768px) {
-  .image-container {
-    min-width: 50px;
-    min-height: 50px;
-  }
-
   .image {
-    min-width: 50px;
-    min-height: 50px;
     padding: 1rem;
   }
 }

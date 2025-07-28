@@ -25,7 +25,7 @@
   flex-direction: column;
   justify-content: space-between;
   min-height: 100%;
-  border: 2px solid var(--color-blue-light);
+  border: 2px solid var(--color-second-light);
   border-radius: var(--border-radius);
   padding: 1rem;
   box-shadow: var(--shadow-md);
@@ -56,7 +56,7 @@
 }
 
 .text::first-letter {
-  color: var(--color-blue-light);
+  color: var(--color-second-light);
   font-weight: bold;
 }
 
@@ -69,6 +69,6 @@
   justify-content: space-between;
   align-content: center;
   width: 100%;
-  border-top: 1px solid var(--color-blue-light);
+  border-top: 1px solid var(--color-second-light);
   padding-top: 1em;
 }

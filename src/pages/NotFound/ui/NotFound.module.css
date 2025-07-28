@@ -7,7 +7,7 @@
   height: 50vh;
   border-bottom-right-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
-  background-color: var(--color-red);
+  background-color: var(--color-first);
 }
 
 .title {
@@ -31,11 +31,11 @@
   padding: 1em;
   color: var(--color-white);
   font-size: 1.5em;
-  background-color: var(--color-blue);
+  background-color: var(--color-second);
   transition: 0.3s ease-in-out;
 }
 
 .link:hover {
-  background-color: var(--color-blue-light);
+  background-color: var(--color-second-light);
   transform: scale(1.1);
 }

@@ -1,9 +1,17 @@
 import { Link, useLocation, useNavigate } from 'react-router';
 import styles from './Header.module.css';
+import { useContext } from 'react';
+import { ThemeContext } from '../../../shared/config/context/context';
 
 export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { theme, setTheme } = useContext(ThemeContext);
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
   const handleMainClick = () => {
     navigate('/');
@@ -26,6 +34,7 @@ export const Header = () => {
         <button className={styles.about} onClick={() => navigate('/about')}>
           About
         </button>
+        <button onClick={toggleTheme}>theme</button>
       </div>
     </div>
   );

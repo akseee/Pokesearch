@@ -11,7 +11,7 @@ export const Header = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <header className={styles.wrapper}>
       <div className={styles['title-wrapper']}>
         <h1 className={styles.title}>
           <Link to={'/'}>PokéDexplorer</Link>
@@ -29,6 +29,6 @@ export const Header = () => {
         </button>
         <ThemeButton />
       </div>
-    </div>
+    </header>
   );
 };

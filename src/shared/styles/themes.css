@@ -27,32 +27,33 @@
 }
 
 [data-theme='dark'] {
-  --color-first: #ce4141;
-  --color-first-dark: #a30000;
-  --color-second: #1d1c1c;
-  --color-second-light: #3a3a3a;
-  --color-third: #b3a97b;
-  --color-third-dark: #8c8157;
+  --color-first: #1b3154;
+  --color-first-dark: #13233d;
 
-  --color-gray-light: #2c2c2c;
-  --color-gray: #444;
-  --color-gray-dark: #dddddd;
+  --color-second: #346cac;
+  --color-second-light: #4a83c2;
+
+  --color-third: #c2224e;
+  --color-third-dark: #8e1838;
+
+  --color-gray-light: #1e1e2c;
+  --color-gray: #2f2f3f;
+  --color-gray-dark: #cccccc;
 
   --color-white: #fdfdfd;
-  --color-black: #121212;
+  --color-black: #030711;
 
-  --bg-body: #1e1d1d;
-  --bg-header: var(--color-first);
-  --bg-card: #3f3d3d;
+  --bg-body: linear-gradient(135deg, #030711 0%, #1b3154 100%);
+  --bg-header: var(--color-first-dark);
+  --bg-card: #0d1420;
 
   --text-primary: var(--color-white);
   --text-on-red: var(--color-white);
   --text-on-second: var(--color-white);
-  --text-on-third: var(--color-black);
+  --text-on-third: var(--color-white);
 
-  --card-border-color: var(--color-third);
-
+  --card-border-color: var(--color-second);
   --card-text-color: var(--color-white);
-  --card-text-color-second: var(--color-white);
-  --card-text-color-third: var(--color-first);
+  --card-text-color-second: var(--color-second-light);
+  --card-text-color-third: var(--color-third);
 }

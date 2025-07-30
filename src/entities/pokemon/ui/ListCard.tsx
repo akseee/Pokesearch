@@ -5,7 +5,7 @@ import styles from './ListCard.module.css';
 import { usePokemonData } from '../model/usePokemonData';
 import { Loader } from '../../../shared/ui/Loader/Loader';
 import { useDispatch } from '../../../app/store';
-import { type ChangeEvent } from 'react';
+import { type MouseEvent } from 'react';
 import {
   getSpecificPokemonData,
   pokemonsActions,
@@ -26,10 +26,10 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
     navigate({ pathname: `/pokemon/${pokemon.name}`, search });
   };
 
-  const handleCheckboxClick = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxClick = (event: MouseEvent<HTMLInputElement>) => {
     event.stopPropagation();
 
-    const checked = event.target.checked;
+    const checked = event.currentTarget.checked;
 
     if (!pokemonData) return;
 
@@ -57,7 +57,8 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
         <input
           type="checkbox"
           className={styles.checkbox}
-          onChange={handleCheckboxClick}
+          // onChange={handleCheckboxClick}
+          onClick={handleCheckboxClick}
           checked={isSelected}
         />
       </div>

@@ -132,9 +132,18 @@
   cursor: pointer;
   appearance: none;
 }
+.checkbox:hover {
+  opacity: 0.6;
+  background: var(--color-third-dark);
+}
 
 .checkbox:checked {
   border-color: var(--color-third-dark);
+  background: var(--color-third);
+}
+
+.checkbox:hover:checked {
+  opacity: 1;
   background: var(--color-third);
 }
 

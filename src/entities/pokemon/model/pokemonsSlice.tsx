@@ -33,13 +33,13 @@ const pokemonsSlice = createSlice({
   },
   selectors: {
     getSelectedPokemonsData: (state) => state.selectedPokemons,
-    getSpecificPokemonData: (state, action) =>
-      state.selectedPokemons.some((char) => {
-        return char.name === action.payload;
-      }),
     getSelectedCount: (state) => state.selectedPokemons.length,
   },
 });
+
+export const getSpecificPokemonData =
+  (name: string) => (state: { pokemons: InitialState }) =>
+    state.pokemons.selectedPokemons.some((p) => p.name === name);
 
 export const pokemonsReducer = pokemonsSlice.reducer;
 export const pokemonsSelectors = pokemonsSlice.selectors;

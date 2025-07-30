@@ -4,6 +4,13 @@ import { PokemonSkeletonCard } from './PokemonCardSkeleton';
 import styles from './ListCard.module.css';
 import { usePokemonData } from '../model/usePokemonData';
 import { Loader } from '../../../shared/ui/Loader/Loader';
+import { useDispatch } from '../../../app/store';
+import { type ChangeEvent } from 'react';
+import {
+  getSpecificPokemonData,
+  pokemonsActions,
+} from '../model/pokemonsSlice';
+import { useSelector } from 'react-redux';
 
 export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
   const { pokemonData, isLoading, error } = usePokemonData(pokemon);
@@ -11,13 +18,26 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const dispatch = useDispatch();
+  const isSelected = useSelector(getSpecificPokemonData(pokemon.name));
+
   const handleCardClick = () => {
     const search = location.search;
     navigate({ pathname: `/pokemon/${pokemon.name}`, search });
   };
 
-  const handleCheckboxClick = (event: React.MouseEvent<HTMLInputElement>) => {
+  const handleCheckboxClick = (event: ChangeEvent<HTMLInputElement>) => {
     event.stopPropagation();
+
+    const checked = event.target.checked;
+
+    if (!pokemonData) return;
+
+    if (checked) {
+      dispatch(pokemonsActions.addPokemon(pokemonData));
+    } else {
+      dispatch(pokemonsActions.removePokemon(pokemonData));
+    }
   };
 
   if (isLoading || !pokemonData) return <PokemonSkeletonCard />;
@@ -37,7 +57,8 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
         <input
           type="checkbox"
           className={styles.checkbox}
-          onClick={handleCheckboxClick}
+          onChange={handleCheckboxClick}
+          checked={isSelected}
         />
       </div>
 

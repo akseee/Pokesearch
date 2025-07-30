@@ -1,11 +1,19 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import styles from './Flyout.module.css';
+import {
+  pokemonsActions,
+  pokemonsSelectors,
+} from '../../../entities/pokemon/model/pokemonsSlice';
+import { useDispatch } from '../../../app/store';
+import { useSelector } from 'react-redux';
 
 export const Flyout = () => {
-  const [count, setCount] = useState(1);
+  const dispatch = useDispatch();
+
+  const count = useSelector(pokemonsSelectors.getSelectedCount);
 
   const onUnselectAll = () => {
-    setCount(0);
+    dispatch(pokemonsActions.clearPokemons());
   };
 
   const onDownload = () => {};

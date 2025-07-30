@@ -6,17 +6,24 @@ import {
 } from '../../../entities/pokemon/model/pokemonsSlice';
 import { useDispatch } from '../../../app/store';
 import { useSelector } from 'react-redux';
+import { downloadCSV } from '../model/downloadCSV';
 
 export const Flyout = () => {
   const dispatch = useDispatch();
 
   const count = useSelector(pokemonsSelectors.getSelectedCount);
+  const selectedPokemons = useSelector(
+    pokemonsSelectors.getSelectedPokemonsData
+  );
 
   const onUnselectAll = () => {
     dispatch(pokemonsActions.clearPokemons());
   };
 
-  const onDownload = () => {};
+  const onDownload = () => {
+    downloadCSV(selectedPokemons);
+    dispatch(pokemonsActions.clearPokemons());
+  };
 
   return (
     <Fragment>

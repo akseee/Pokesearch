@@ -15,6 +15,7 @@ export const mockPokemonResponse = {
     { base_stat: 35, stat: { name: 'hp' } },
     { base_stat: 55, stat: { name: 'attack' } },
   ],
+  description: 'test',
 };
 
 export const mockSpeciesResponse = {

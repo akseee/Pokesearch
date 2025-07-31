@@ -10,6 +10,7 @@ import { mockDetailedCardData } from '../../../shared/lib/mocks';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DetailedCardPage } from './DetailedCardPage';
+import type { PokemonData } from '../../../shared/types/pokemon.types';
 
 vi.mock('react-router', async () => {
   const actual =
@@ -22,23 +23,13 @@ vi.mock('react-router', async () => {
   };
 });
 
-vi.mock('../../../shared/ui/PokemonCardLayout/PokemonCardLayout', () => ({
-  PokemonCardLayout: ({
-    title,
-    type,
-    description,
-    order,
-  }: {
-    title: string;
-    type: string;
-    description: string;
-    order: number;
-  }) => (
-    <div data-testid="pokemon-layout">
-      <div>{title}</div>
-      <div>{type}</div>
-      <div>#{String(order).padStart(3, '0')}</div>
-      <p>{description}</p>
+vi.mock('../../../entities/pokemon/ui/DetailedCard', () => ({
+  DetailedCard: ({ pokemonData }: { pokemonData: PokemonData }) => (
+    <div data-testid="card-layout-wrapper">
+      <div>{pokemonData.name}</div>
+      <div>{pokemonData.type}</div>
+      <div>#{String(pokemonData.order).padStart(3, '0')}</div>
+      <p>{pokemonData.description}</p>
     </div>
   ),
 }));
@@ -61,7 +52,7 @@ describe('DetailedCardPage', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByTestId('pokemon-layout')).toBeInTheDocument();
+    expect(screen.getByTestId('card-layout-wrapper')).toBeInTheDocument();
     expect(screen.getByText(/pikachu/i)).toBeInTheDocument();
     expect(screen.getByText(/#025/i)).toBeInTheDocument();
     expect(screen.getByText(/This is a test description/i)).toBeInTheDocument();

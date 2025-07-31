@@ -43,7 +43,7 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
   if (isLoading || !pokemonData) return <PokemonSkeletonCard />;
 
   if (error) {
-    return <div>faield to laod data</div>;
+    return <div>faileld to load data</div>;
   }
 
   const { name, image, type, order } = pokemonData;

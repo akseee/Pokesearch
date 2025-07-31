@@ -9,7 +9,7 @@ export const DetailedCard = ({
   isLoading,
   error,
 }: {
-  pokemonData: PokemonData;
+  pokemonData: PokemonData | null;
   isLoading: boolean;
   error: string | null;
 }) => {
@@ -17,7 +17,7 @@ export const DetailedCard = ({
 
   if (error) {
     return (
-      <div className={styles['card-layout-wrapper']}>faield to load data</div>
+      <div className={styles['card-layout-wrapper']}>failed to load data</div>
     );
   }
 

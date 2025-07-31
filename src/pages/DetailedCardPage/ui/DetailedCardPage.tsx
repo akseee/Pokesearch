@@ -1,7 +1,6 @@
 import { useLocation, useNavigate, useParams } from 'react-router';
-import { usePokemonData } from '../../../entities/pokemon/model/usePokemonData';
 import styles from './DetailedCardPage.module.css';
-import { DetailedCard } from '../../../entities/pokemon/ui/DetailedCard';
+import { DetailedCard, usePokemonData } from '../../../entities/pokemon';
 
 export const DetailedCardPage = () => {
   const { pokemon } = useParams();

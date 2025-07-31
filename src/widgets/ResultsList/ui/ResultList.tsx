@@ -1,7 +1,6 @@
 import type { NamedAPIResource } from '../../../shared/types/api.types';
-import { PokemonSkeletonCard } from '../../../entities/pokemon/ui/PokemonCardSkeleton';
 import styles from './ResultList.module.css';
-import { ListCard } from '../../../entities/pokemon/ui/ListCard';
+import { ListCard, PokemonSkeletonCard } from '../../../entities/pokemon';
 
 interface ResultListProps {
   isLoading: boolean;

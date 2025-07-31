@@ -3,8 +3,9 @@ import { Flyout } from './Flyout';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDispatch as useAppDispatch } from '../../../app/store';
 import { downloadCSV } from '../model/downloadCSV';
-import { pokemonsActions } from '../../../entities/pokemon/model/pokemonsSlice';
+
 import { mockPokemonResponse } from '../../../shared/lib/mocks';
+import { pokemonsActions } from '../../../entities/pokemon';
 
 vi.mock('react-redux', () => ({
   useSelector: vi.fn(),
@@ -19,7 +20,7 @@ vi.mock('../model/downloadCSV', () => ({
   downloadCSV: vi.fn(),
 }));
 
-vi.mock('../../../entities/pokemon/model/pokemonsSlice', () => ({
+vi.mock('../../../entities/pokemon', () => ({
   pokemonsActions: {
     clearPokemons: vi.fn(),
   },

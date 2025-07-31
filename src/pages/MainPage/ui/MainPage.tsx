@@ -1,11 +1,11 @@
 import { ResultList } from '../../../widgets/ResultsList/ui/ResultList';
 import { SearchForm } from '../../../features/SearchForm';
 import styles from './MainPage.module.css';
-import { usePokemonsListData } from '../../../entities/pokemon/model/usePokemonListData';
 import { Loader } from '../../../shared/ui/Loader/Loader';
 import { Pagination } from '../../../features/Pagination';
 import { Outlet, useParams } from 'react-router';
 import { useSearchQueryParams } from '../../../shared/hooks/useSearchQueryParams';
+import { usePokemonsListData } from '../../../entities/pokemon';
 
 export const MainPage = () => {
   const { query, page, setQuery, setPage } = useSearchQueryParams();

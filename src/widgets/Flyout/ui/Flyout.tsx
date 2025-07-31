@@ -1,12 +1,10 @@
 import { Fragment } from 'react';
 import styles from './Flyout.module.css';
-import {
-  pokemonsActions,
-  pokemonsSelectors,
-} from '../../../entities/pokemon/model/pokemonsSlice';
+
 import { useDispatch } from '../../../app/store';
 import { useSelector } from 'react-redux';
 import { downloadCSV } from '../model/downloadCSV';
+import { pokemonsActions, pokemonsSelectors } from '../../../entities/pokemon';
 
 export const Flyout = () => {
   const dispatch = useDispatch();

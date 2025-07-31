@@ -1,31 +1,11 @@
+import { bulbasaur, pikachu } from '../../../shared/lib/mocks';
 import {
   pokemonsReducer,
   pokemonsActions,
   getSpecificPokemonData,
 } from './pokemonsSlice';
-import type { PokemonData } from '../../../shared/types/pokemon.types';
 
 describe('pokemonsSlice', () => {
-  const pikachu: PokemonData = {
-    name: 'pikachu',
-    image: 'pikachu.png',
-    order: 25,
-    description: 'test',
-    type: 'electric',
-    stats: { hp: 23 },
-    id: 25,
-  };
-
-  const bulbasaur: PokemonData = {
-    name: 'bulbasaur',
-    image: 'bulbasaur.png',
-    order: 1,
-    type: 'grass',
-    description: 'test',
-    stats: { hp: 23 },
-    id: 26,
-  };
-
   test('should add pokemon to store', () => {
     const state = { selectedPokemons: [] };
 

@@ -1,4 +1,5 @@
 import type { NamedAPIResource } from '../types/api.types';
+import type { PokemonData } from '../types/pokemon.types';
 
 export const mockPokemonResponse = {
   name: 'pikachu',
@@ -88,4 +89,24 @@ export const mockPokemonsPage2 = {
     { name: 'pokemon5', url: 'https://pokeapi.co/api/v2/pokemon/5/' },
     { name: 'pokemon6', url: 'https://pokeapi.co/api/v2/pokemon/6/' },
   ],
+};
+
+export const pikachu: PokemonData = {
+  name: 'pikachu',
+  image: 'pikachu.png',
+  order: 25,
+  description: 'test',
+  type: 'electric',
+  stats: { hp: 23 },
+  id: 25,
+};
+
+export const bulbasaur: PokemonData = {
+  name: 'bulbasaur',
+  image: 'bulbasaur.png',
+  order: 1,
+  type: 'grass',
+  description: 'test',
+  stats: { hp: 23 },
+  id: 26,
 };

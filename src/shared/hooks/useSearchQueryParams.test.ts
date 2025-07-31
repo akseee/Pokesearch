@@ -41,6 +41,7 @@ describe('useSearchQueryParams', () => {
     expect(result.current.query).toBe('pikachu');
     expect(result.current.page).toBe(3);
   });
+
   test('when setQuery is called, page is set to 1', () => {
     const { result } = renderHook(() => useSearchQueryParams());
 

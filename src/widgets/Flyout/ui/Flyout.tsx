@@ -20,7 +20,7 @@ export const Flyout = () => {
     dispatch(pokemonsActions.clearPokemons());
   };
 
-  const onDownload = () => {
+  const onDownloadClick = () => {
     downloadCSV(selectedPokemons);
     dispatch(pokemonsActions.clearPokemons());
   };
@@ -33,7 +33,7 @@ export const Flyout = () => {
             {count} pokemon{count > 1 ? 's' : ''} selected
           </span>
           <button onClick={onUnselectAll}>Unselect all</button>
-          <button onClick={onDownload}>Download</button>
+          <button onClick={onDownloadClick}>Download</button>
         </div>
       )}
     </Fragment>

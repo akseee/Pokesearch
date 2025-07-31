@@ -20,10 +20,10 @@ button {
   border: none;
   border-radius: var(--border-radius);
   padding: 0.75rem 1.5rem;
-  color: var(--text-on-blue);
+  color: var(--text-on-second);
   font-weight: 600;
   font-size: 1rem;
-  background-color: var(--color-blue);
+  background-color: var(--color-second);
   transition:
     background-color var(--transition-fast),
     box-shadow var(--transition-fast);
@@ -34,12 +34,12 @@ button:hover,
 button:focus {
   box-shadow: var(--shadow-md);
   outline: none;
-  color: var(--text-on-yellow);
-  background-color: var(--color-yellow);
+  color: var(--text-on-third);
+  background-color: var(--color-third);
 }
 
 a {
-  color: var(--color-red);
+  color: var(--color-first);
   font-weight: 600;
   text-decoration: none;
   transition: color var(--transition-fast);
@@ -48,7 +48,7 @@ a {
 a:hover,
 a:focus {
   outline: none;
-  color: var(--color-red-dark);
+  color: var(--color-first-dark);
 }
 
 h1,
@@ -86,8 +86,8 @@ select {
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: var(--color-blue);
-  box-shadow: 0 0 5px var(--color-blue);
+  border-color: var(--color-second);
+  box-shadow: 0 0 5px var(--color-second);
 }
 
 ul,

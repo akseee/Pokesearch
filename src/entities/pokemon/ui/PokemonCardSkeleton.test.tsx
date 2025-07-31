@@ -3,7 +3,7 @@ import { PokemonSkeletonCard } from './PokemonCardSkeleton';
 
 describe('Pokemon Card', () => {
   describe('Render', () => {
-    test('handles missing props gracefully, should render with fallabck data', () => {
+    test('should render with fallabck data', () => {
       render(<PokemonSkeletonCard />);
 
       const title = screen.getByText('Pokemon');

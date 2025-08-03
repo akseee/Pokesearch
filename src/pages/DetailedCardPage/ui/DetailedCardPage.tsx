@@ -1,9 +1,8 @@
 import { useLocation, useNavigate, useParams } from 'react-router';
-import { usePokemonData } from '../../../entities/pokemon/model/usePokemonData';
-import { PokemonCardLayout } from '../../../shared/ui/PokemonCardLayout/PokemonCardLayout';
-import styles from './DetailedCard.module.css';
+import styles from './DetailedCardPage.module.css';
+import { DetailedCard, usePokemonData } from '../../../entities/pokemon';
 
-export const DetailedCard = () => {
+export const DetailedCardPage = () => {
   const { pokemon } = useParams();
   const pokemonName = pokemon ?? '';
 
@@ -31,15 +30,12 @@ export const DetailedCard = () => {
       <button className={styles.button} onClick={handleCloseClick}>
         &#9587;
       </button>
+
       {pokemonData && (
-        <PokemonCardLayout
-          loading={isLoading}
-          image={pokemonData.image}
-          order={pokemonData.order}
-          type={pokemonData.type}
-          title={pokemonData.name}
-          description={pokemonData.description}
-          stats={pokemonData.stats}
+        <DetailedCard
+          pokemonData={pokemonData}
+          isLoading={isLoading}
+          error={error || null}
         />
       )}
     </>

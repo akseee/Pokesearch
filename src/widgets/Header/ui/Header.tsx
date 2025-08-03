@@ -1,5 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router';
 import styles from './Header.module.css';
+import { ThemeButton } from '../../../features/ThemeButton';
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export const Header = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <header className={styles.wrapper}>
       <div className={styles['title-wrapper']}>
         <h1 className={styles.title}>
           <Link to={'/'}>PokéDexplorer</Link>
@@ -26,7 +27,8 @@ export const Header = () => {
         <button className={styles.about} onClick={() => navigate('/about')}>
           About
         </button>
+        <ThemeButton />
       </div>
-    </div>
+    </header>
   );
 };

@@ -105,12 +105,6 @@
   transition: color 0.3s ease-in-out;
 }
 
-.description {
-  color: var(--card-text-color-third);
-  font-weight: bold;
-  text-align: center;
-}
-
 @media (max-width: 768px) {
   .image {
     padding: 1rem;
@@ -129,8 +123,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   border: 2px solid var(--card-border-color);
   border-radius: 4px;
   background: var(--color-gray-light);
@@ -138,9 +132,18 @@
   cursor: pointer;
   appearance: none;
 }
+.checkbox:hover {
+  opacity: 0.6;
+  background: var(--color-third-dark);
+}
 
 .checkbox:checked {
   border-color: var(--color-third-dark);
+  background: var(--color-third);
+}
+
+.checkbox:hover:checked {
+  opacity: 1;
   background: var(--color-third);
 }
 

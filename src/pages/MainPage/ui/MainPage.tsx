@@ -14,13 +14,13 @@ export const MainPage = () => {
   const {
     data: pokemonsData,
     isLoading,
+    isFetching,
     // error,
   } = useGetManyPokemonsQuery({ query, page });
 
   const handleSearch = (newQuery: string) => {
     setQuery(newQuery);
   };
-
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
@@ -29,6 +29,7 @@ export const MainPage = () => {
     <div className={styles.wrapper}>
       <SearchForm query={query} onSubmit={handleSearch} />
       <Pagination
+        isLoading={isFetching}
         page={page}
         totalPages={(pokemonsData && Math.ceil(pokemonsData?.count / 20)) || 1}
         onPageChange={handlePageChange}

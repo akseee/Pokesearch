@@ -28,8 +28,8 @@ export const pokemonApi = createApi({
         query: (source) => {
           const name = typeof source === 'string' ? source : source.name;
           return typeof source === 'string'
-            ? `${BASE_API}/pokemon/${name}`
-            : source.url;
+            ? `/pokemon/${name}`
+            : source.url.replace(BASE_API, '');
         },
         providesTags: (result, error, arg) => [
           { type: 'Pokemon', id: typeof arg === 'string' ? arg : arg.name },

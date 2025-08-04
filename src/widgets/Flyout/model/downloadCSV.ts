@@ -7,8 +7,6 @@ export function downloadCSV(data: PokemonData[]) {
     'id',
     'description',
     'image',
-    'stats',
-    'order',
   ];
 
   const rows = data.map((item) =>

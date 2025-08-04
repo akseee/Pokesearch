@@ -81,6 +81,7 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
             className={styles.image}
             src={image !== '' ? image : './placeholder.png'}
             alt={name}
+            loading="lazy"
           />
         )}
       </div>

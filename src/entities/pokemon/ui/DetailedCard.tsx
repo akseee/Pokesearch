@@ -24,34 +24,29 @@ export const DetailedCard = ({
   const { name, image, description, stats, type, order } = pokemonData;
   return (
     <div data-id={name.toLowerCase()} className={styles['card-layout-wrapper']}>
-      {error ? (
-        'An error occured while loading data'
-      ) : (
-        <>
-          <div className={styles['image-container']}>
-            {isLoading ? (
-              <div className={styles.image}>
-                <Loader />
-              </div>
-            ) : (
-              <img
-                className={styles.image}
-                src={image !== '' ? image : './placeholder.png'}
-                alt={name}
-              />
-            )}
+      <div className={styles['image-container']}>
+        {isLoading ? (
+          <div className={styles.image}>
+            <Loader />
           </div>
-          <div className={styles.title}>{name}</div>
-          <p className={styles.description}>{description}</p>
-          <div className={styles.order}>
-            {order !== -1
-              ? `#${order.toString().padStart(3, '0')}`
-              : 'yet to classify'}
-          </div>
-          <div className={styles.type}>{type}</div>
-          <PokemonStatsList stats={stats} />
-        </>
-      )}
+        ) : (
+          <img
+            className={styles.image}
+            src={image !== '' ? image : './placeholder.png'}
+            alt={name}
+            loading="lazy"
+          />
+        )}
+      </div>
+      <div className={styles.title}>{name}</div>
+      <p className={styles.description}>{description}</p>
+      <div className={styles.order}>
+        {order !== -1
+          ? `#${order.toString().padStart(3, '0')}`
+          : 'yet to classify'}
+      </div>
+      <div className={styles.type}>{type}</div>
+      <PokemonStatsList stats={stats} />
     </div>
   );
 };

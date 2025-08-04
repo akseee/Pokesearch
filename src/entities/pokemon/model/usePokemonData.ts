@@ -28,23 +28,18 @@ export const usePokemonData = (
     'This mysterious Pokémon eludes our research — its secrets remain hidden in the shadows. Perhaps one day, brave trainers will unveil its true nature!';
 
   const combinedData = useMemo(() => {
-    if (!pokemonData) return null;
+    if (!pokemonData || isDescriptionLoading) return null;
 
     return {
-      name: pokemonData.name,
-      id: pokemonData.id,
-      order: pokemonData.order,
-      type: pokemonData.type || 'unknown',
-      image: pokemonData.image || '',
-      stats: pokemonData.stats || {},
+      ...pokemonData,
       description:
         descriptionError || !description ? defaultDescription : description,
     };
-  }, [pokemonData, description, descriptionError]);
+  }, [pokemonData, description, descriptionError, isDescriptionLoading]);
 
   return {
     pokemonData: combinedData,
-    isLoading: isPokemonLoading || (isDescriptionLoading && !!pokemonData),
+    isLoading: isPokemonLoading || isDescriptionLoading,
     error: pokemonError || descriptionError,
   };
 };

@@ -1,19 +1,16 @@
 import { PokemonSkeletonCard } from './PokemonCardSkeleton';
 import styles from './DetailedCard.module.css';
-import { Loader } from '../../../shared/ui/Loader/Loader';
 import PokemonStatsList from '../../../shared/ui/PokemonCardLayout/PokemonStatsList';
 import type { PokemonData } from '../../../shared/types/pokemon.types';
 
 export const DetailedCard = ({
   pokemonData,
-  isLoading,
   error,
 }: {
   pokemonData: PokemonData | null;
-  isLoading: boolean;
   error: string | null;
 }) => {
-  if (isLoading || !pokemonData) return <PokemonSkeletonCard />;
+  if (!pokemonData) return <PokemonSkeletonCard />;
 
   if (error) {
     return (
@@ -25,18 +22,12 @@ export const DetailedCard = ({
   return (
     <div data-id={name.toLowerCase()} className={styles['card-layout-wrapper']}>
       <div className={styles['image-container']}>
-        {isLoading ? (
-          <div className={styles.image}>
-            <Loader />
-          </div>
-        ) : (
-          <img
-            className={styles.image}
-            src={image !== '' ? image : './placeholder.png'}
-            alt={name}
-            loading="lazy"
-          />
-        )}
+        <img
+          className={styles.image}
+          src={image !== '' ? image : './placeholder.png'}
+          alt={name}
+          loading="lazy"
+        />
       </div>
       <div className={styles.title}>{name}</div>
       <p className={styles.description}>{description}</p>

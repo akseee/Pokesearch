@@ -3,11 +3,11 @@ import type {
   PokemonData,
   RawPokemonSpeciesResponse,
 } from '../../../shared/types/pokemon.types';
-import type { NamedAPIResource } from '../../../shared/types/api.types';
+import type { NamedAPIResource } from '../../../shared/api/api.types';
 import type { PokemonCardState, RawPokemonResponse } from './types';
 import { tranformPokemonData } from './transformPokemonData';
 import { pokemonCache } from '../../../shared/lib/cache';
-import { BASE_API, SPECIES_API } from '../../../shared/lib/constants';
+import { BASE_API } from '../../../shared/lib/constants';
 
 export const usePokemonData = (
   source: NamedAPIResource | string
@@ -21,7 +21,9 @@ export const usePokemonData = (
 
     async function fetchDescriptionData(name: string) {
       try {
-        const res = await fetch(`${SPECIES_API}${name}`);
+        const res = await fetch(
+          `https://pokeapi.co/api/v2/pokemon-species/${name}`
+        );
 
         const data: RawPokemonSpeciesResponse = await res.json();
 
@@ -37,7 +39,6 @@ export const usePokemonData = (
     }
 
     async function fetchData() {
-      // think about flag of demounted component
       setIsLoading(true);
       setError(null);
 
@@ -45,7 +46,9 @@ export const usePokemonData = (
         const name = typeof source === 'string' ? source : source.name;
 
         const url =
-          typeof source === 'string' ? `${BASE_API}${name}` : source.url;
+          typeof source === 'string'
+            ? `${BASE_API}/pokemon/${name}`
+            : source.url;
         if (pokemonCache.has(name)) {
           const data = pokemonCache.get(name);
           setPokemonData(data ?? null);

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import type { NamedAPIResource } from '../../../shared/types/api.types';
+import type { NamedAPIResource } from '../../../shared/api/api.types';
 import { ResultList } from './ResultList';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';

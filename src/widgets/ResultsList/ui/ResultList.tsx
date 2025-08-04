@@ -1,4 +1,4 @@
-import type { NamedAPIResource } from '../../../shared/types/api.types';
+import type { NamedAPIResource } from '../../../shared/api/api.types';
 import styles from './ResultList.module.css';
 import { ListCard, PokemonSkeletonCard } from '../../../entities/pokemon';
 

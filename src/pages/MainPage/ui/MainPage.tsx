@@ -5,13 +5,17 @@ import { Loader } from '../../../shared/ui/Loader/Loader';
 import { Pagination } from '../../../features/Pagination';
 import { Outlet, useParams } from 'react-router';
 import { useSearchQueryParams } from '../../../shared/hooks/useSearchQueryParams';
-import { usePokemonsListData } from '../../../entities/pokemon';
+import { useGetPokemonsQuery } from '../../../shared/api/pokemonApi';
 
 export const MainPage = () => {
   const { query, page, setQuery, setPage } = useSearchQueryParams();
   const { pokemon } = useParams();
 
-  const { pokemonsData, isLoading, error } = usePokemonsListData(query, page);
+  const {
+    data: pokemonsData,
+    isLoading,
+    // error,
+  } = useGetPokemonsQuery({ query, page });
 
   const handleSearch = (newQuery: string) => {
     setQuery(newQuery);
@@ -35,7 +39,7 @@ export const MainPage = () => {
           <ResultList
             pokemons={pokemonsData?.results || []}
             isLoading={isLoading}
-            error={error}
+            // error={error}
           />
         </div>
         {pokemon && (

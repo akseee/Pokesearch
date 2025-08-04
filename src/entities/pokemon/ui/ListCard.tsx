@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router';
-import type { NamedAPIResource } from '../../../shared/types/api.types';
+import type { NamedAPIResource } from '../../../shared/api/api.types';
 import { PokemonSkeletonCard } from './PokemonCardSkeleton';
 import styles from './ListCard.module.css';
 import { usePokemonData } from '../model/usePokemonData';
@@ -57,7 +57,7 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
         <input
           type="checkbox"
           className={styles.checkbox}
-          // onChange={handleCheckboxClick}
+          onChange={() => {}}
           onClick={handleCheckboxClick}
           checked={isSelected}
         />

@@ -1,4 +1,4 @@
-import type { ApiResponse, NamedAPIResource } from '../types/api.types';
+import type { ApiResponse, NamedAPIResource } from './api.types';
 
 export async function fetchPokemonsAPI(
   query?: string,

@@ -1,4 +1,4 @@
-import type { NamedAPIResource } from '../types/api.types';
+import type { NamedAPIResource } from '../api/api.types';
 import type { PokemonData } from '../types/pokemon.types';
 
 export const mockPokemonResponse = {

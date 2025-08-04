@@ -1,8 +1,6 @@
 import { useLocation, useNavigate } from 'react-router';
 import type { NamedAPIResource } from '../../../shared/api/api.types';
-import { PokemonSkeletonCard } from './PokemonCardSkeleton';
 import styles from './ListCard.module.css';
-import { usePokemonData } from '../model/usePokemonData';
 import { Loader } from '../../../shared/ui/Loader/Loader';
 import { useDispatch } from '../../../app/store';
 import { type MouseEvent } from 'react';
@@ -11,15 +9,31 @@ import {
   pokemonsActions,
 } from '../model/pokemonsSlice';
 import { useSelector } from 'react-redux';
+import { useGetOnePokemonQuery } from '../../../shared/api/pokemonApi';
+import { PokemonSkeletonCard } from './PokemonCardSkeleton';
 
 export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
-  const { pokemonData, isLoading, error } = usePokemonData(pokemon);
+  const {
+    data: pokemonData,
+    isLoading: isLoadingPokemon,
+    error: errorPokemon,
+  } = useGetOnePokemonQuery(pokemon);
 
   const navigate = useNavigate();
   const location = useLocation();
 
   const dispatch = useDispatch();
   const isSelected = useSelector(getSpecificPokemonData(pokemon.name));
+
+  if (errorPokemon) return `Could not load data about ${pokemon.name}`;
+
+  if (isLoadingPokemon) {
+    return <PokemonSkeletonCard />;
+  }
+
+  if (!pokemonData) {
+    return <div>No data found</div>;
+  }
 
   const handleCardClick = () => {
     const search = location.search;
@@ -40,12 +54,6 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
     }
   };
 
-  if (isLoading || !pokemonData) return <PokemonSkeletonCard />;
-
-  if (error) {
-    return <div>faileld to load data</div>;
-  }
-
   const { name, image, type, order } = pokemonData;
   return (
     <li
@@ -64,17 +72,23 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
       </div>
 
       <div className={styles['image-container']}>
-        {isLoading ? (
+        {isLoadingPokemon ? (
           <div className={styles.image}>
             <Loader />
           </div>
         ) : (
-          <img className={styles.image} src={image} alt={name} />
+          <img
+            className={styles.image}
+            src={image !== '' ? image : './placeholder.png'}
+            alt={name}
+          />
         )}
       </div>
       <div className={styles.title}>{name}</div>
       <div className={styles.order}>
-        {`#${order.toString().padStart(3, '0')}`}
+        {order !== -1
+          ? `#${order.toString().padStart(3, '0')}`
+          : 'yet to classify'}
       </div>
       <div className={styles.type}>{type}</div>
     </li>

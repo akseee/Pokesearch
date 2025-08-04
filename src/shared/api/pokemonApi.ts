@@ -1,15 +1,46 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query';
 import { createApi } from '@reduxjs/toolkit/query/react';
-import type { ApiResponse, NamedAPIResource } from './api.types';
+import type {
+  ApiResponse,
+  NamedAPIResource,
+  RawPokemonResponse,
+} from './api.types';
 import { BASE_API, POKEMON_URL } from '../lib/constants';
-import type { RawPokemonResponse } from '../../entities/pokemon/model/types';
+import type {
+  PokemonData,
+  RawPokemonSpeciesResponse,
+} from '../types/pokemon.types';
+import { tranformPokemonData } from '../lib/transformPokemonData';
 
 export const pokemonApi = createApi({
   reducerPath: 'pokemonApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_API }),
   tagTypes: ['PokemonList', 'Pokemon'],
   endpoints: (builder) => ({
-    getPokemons: builder.query<
+    getDescription: builder.query<string | null, string>({
+      query: (name) => `pokemon-species/${name}`,
+      transformResponse: (response: RawPokemonSpeciesResponse) => {
+        const entry = response.flavor_text_entries.find(
+          (item) => item.language.name === 'en'
+        );
+        return entry ? entry.flavor_text.replace(/\f|\n/g, ' ') : null;
+      },
+    }),
+    getOnePokemon: builder.query<PokemonData, NamedAPIResource | string>({
+      query: (source) => {
+        const name = typeof source === 'string' ? source : source.name;
+        return typeof source === 'string'
+          ? `${BASE_API}/pokemon/${name}`
+          : source.url;
+      },
+      transformResponse: (raw: RawPokemonResponse) => {
+        return tranformPokemonData(raw, null);
+      },
+      providesTags: (result, error, arg) => [
+        { type: 'Pokemon', id: typeof arg === 'string' ? arg : arg.name },
+      ],
+    }),
+    getManyPokemons: builder.query<
       ApiResponse<NamedAPIResource>,
       { query?: string; page?: number }
     >({
@@ -42,4 +73,8 @@ export const pokemonApi = createApi({
   }),
 });
 
-export const { useGetPokemonsQuery } = pokemonApi;
+export const {
+  useGetDescriptionQuery,
+  useGetOnePokemonQuery,
+  useGetManyPokemonsQuery,
+} = pokemonApi;

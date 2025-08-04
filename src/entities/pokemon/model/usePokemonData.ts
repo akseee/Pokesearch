@@ -3,11 +3,14 @@ import type {
   PokemonData,
   RawPokemonSpeciesResponse,
 } from '../../../shared/types/pokemon.types';
-import type { NamedAPIResource } from '../../../shared/api/api.types';
-import type { PokemonCardState, RawPokemonResponse } from './types';
-import { tranformPokemonData } from './transformPokemonData';
+import type {
+  NamedAPIResource,
+  RawPokemonResponse,
+} from '../../../shared/api/api.types';
+import type { PokemonCardState } from './types';
 import { pokemonCache } from '../../../shared/lib/cache';
 import { BASE_API } from '../../../shared/lib/constants';
+import { tranformPokemonData } from '../../../shared/lib/transformPokemonData';
 
 export const usePokemonData = (
   source: NamedAPIResource | string
@@ -24,7 +27,9 @@ export const usePokemonData = (
         const res = await fetch(
           `https://pokeapi.co/api/v2/pokemon-species/${name}`
         );
-
+        if (!res.ok) {
+          return null;
+        }
         const data: RawPokemonSpeciesResponse = await res.json();
 
         const entry = data.flavor_text_entries.find(
@@ -32,8 +37,8 @@ export const usePokemonData = (
         );
 
         return entry ? entry.flavor_text.replace(/\f|\n/g, ' ') : null;
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.log(error);
         return null;
       }
     }

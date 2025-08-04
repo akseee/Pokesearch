@@ -5,7 +5,7 @@ import { Loader } from '../../../shared/ui/Loader/Loader';
 import { Pagination } from '../../../features/Pagination';
 import { Outlet, useParams } from 'react-router';
 import { useSearchQueryParams } from '../../../shared/hooks/useSearchQueryParams';
-import { useGetPokemonsQuery } from '../../../shared/api/pokemonApi';
+import { useGetManyPokemonsQuery } from '../../../shared/api/pokemonApi';
 
 export const MainPage = () => {
   const { query, page, setQuery, setPage } = useSearchQueryParams();
@@ -15,7 +15,7 @@ export const MainPage = () => {
     data: pokemonsData,
     isLoading,
     // error,
-  } = useGetPokemonsQuery({ query, page });
+  } = useGetManyPokemonsQuery({ query, page });
 
   const handleSearch = (newQuery: string) => {
     setQuery(newQuery);

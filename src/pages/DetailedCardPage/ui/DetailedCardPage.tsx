@@ -6,19 +6,10 @@ export const DetailedCardPage = () => {
   const { pokemon } = useParams();
   const pokemonName = pokemon ?? '';
 
-  const { pokemonData, isLoading, error } = usePokemonData(pokemonName);
+  const { pokemonData, isLoading } = usePokemonData(pokemonName);
 
   const navigate = useNavigate();
   const location = useLocation();
-
-  if (error) {
-    return (
-      <div style={{ color: 'red', padding: 20, textAlign: 'center' }}>
-        <h2>Error loading Pokémon</h2>
-        <p>{error}</p>
-      </div>
-    );
-  }
 
   const handleCloseClick = () => {
     const search = location.search;
@@ -35,7 +26,7 @@ export const DetailedCardPage = () => {
         <DetailedCard
           pokemonData={pokemonData}
           isLoading={isLoading}
-          error={error || null}
+          error={null}
         />
       )}
     </>

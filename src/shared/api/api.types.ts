@@ -8,10 +8,6 @@ export interface NamedAPIResource {
   url: string;
 }
 
-export interface APIResource {
-  url: string;
-}
-
 export interface RawPokemonResponse {
   name: string;
   id: number;
@@ -29,4 +25,12 @@ export interface RawPokemonResponse {
   };
   types: { type: { name: string } }[];
   stats: { base_stat: number; stat: { name: string } }[];
+  species: { url: string };
+}
+
+export interface RawPokemonSpeciesResponse {
+  flavor_text_entries: {
+    flavor_text: string;
+    language: { name: string };
+  }[];
 }

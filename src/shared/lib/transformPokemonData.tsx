@@ -4,7 +4,7 @@ import { getPokemonStats } from './getPokemonStats';
 
 export function tranformPokemonData(
   raw: RawPokemonResponse,
-  description: string | null
+  description?: string | null
 ): PokemonData {
   const statMap: Record<string, number> = {};
 

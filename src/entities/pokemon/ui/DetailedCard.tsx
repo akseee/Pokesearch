@@ -7,7 +7,7 @@ export const DetailedCard = ({
   pokemonData,
   error,
 }: {
-  pokemonData: PokemonData | null;
+  pokemonData: PokemonData;
   error: string | null;
 }) => {
   if (!pokemonData) return <PokemonSkeletonCard />;

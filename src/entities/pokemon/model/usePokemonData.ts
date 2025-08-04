@@ -1,9 +1,9 @@
-import { useMemo } from 'react';
 import {
   useGetDescriptionQuery,
   useGetOnePokemonQuery,
 } from '../../../shared/api/pokemonApi';
 import type { PokemonData } from '../../../shared/types/pokemon.types';
+import { tranformPokemonData } from '../../../shared/lib/transformPokemonData';
 
 export const usePokemonData = (
   name: string
@@ -18,27 +18,22 @@ export const usePokemonData = (
     error: pokemonError,
   } = useGetOnePokemonQuery(name);
 
+  const speciesUrl = pokemonData?.species.url ?? '';
+
   const {
     data: description,
     isLoading: isDescriptionLoading,
     error: descriptionError,
-  } = useGetDescriptionQuery(name, { skip: !pokemonData });
+  } = useGetDescriptionQuery(speciesUrl, {
+    skip: !speciesUrl,
+  });
 
-  const defaultDescription =
-    'This mysterious Pokémon eludes our research — its secrets remain hidden in the shadows. Perhaps one day, brave trainers will unveil its true nature!';
-
-  const combinedData = useMemo(() => {
-    if (!pokemonData || isDescriptionLoading) return null;
-
-    return {
-      ...pokemonData,
-      description:
-        descriptionError || !description ? defaultDescription : description,
-    };
-  }, [pokemonData, description, descriptionError, isDescriptionLoading]);
+  const parsed = pokemonData
+    ? tranformPokemonData(pokemonData, description)
+    : null;
 
   return {
-    pokemonData: combinedData,
+    pokemonData: parsed,
     isLoading: isPokemonLoading || isDescriptionLoading,
     error: pokemonError || descriptionError,
   };

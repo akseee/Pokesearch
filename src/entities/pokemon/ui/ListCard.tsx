@@ -11,6 +11,7 @@ import {
 import { useSelector } from 'react-redux';
 import { useGetOnePokemonQuery } from '../../../shared/api/pokemonApi';
 import { PokemonSkeletonCard } from './PokemonCardSkeleton';
+import { tranformPokemonData } from '../../../shared/lib/transformPokemonData';
 
 export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
   const {
@@ -35,6 +36,8 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
     return <div>No data found</div>;
   }
 
+  const data = tranformPokemonData(pokemonData);
+
   const handleCardClick = () => {
     const search = location.search;
     navigate({ pathname: `/pokemon/${pokemon.name}`, search });
@@ -45,16 +48,15 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
 
     const checked = event.currentTarget.checked;
 
-    if (!pokemonData) return;
-
     if (checked) {
-      dispatch(pokemonsActions.addPokemon(pokemonData));
+      dispatch(pokemonsActions.addPokemon(data));
     } else {
-      dispatch(pokemonsActions.removePokemon(pokemonData));
+      dispatch(pokemonsActions.removePokemon(data));
     }
   };
 
-  const { name, image, type, order } = pokemonData;
+  const { name, image, type, order } = data;
+
   return (
     <li
       id={name.toLowerCase()}

@@ -5,7 +5,11 @@ import { Loader } from '../../../shared/ui/Loader/Loader';
 import { Pagination } from '../../../features/Pagination';
 import { Outlet, useParams } from 'react-router';
 import { useSearchQueryParams } from '../../../shared/hooks/useSearchQueryParams';
-import { useGetManyPokemonsQuery } from '../../../shared/api/pokemonApi';
+import {
+  pokemonApi,
+  useGetManyPokemonsQuery,
+} from '../../../shared/api/pokemonApi';
+import { useDispatch } from '../../../app/store';
 
 export const MainPage = () => {
   const { query, page, setQuery, setPage } = useSearchQueryParams();
@@ -18,18 +22,32 @@ export const MainPage = () => {
     // error,
   } = useGetManyPokemonsQuery({ query, page });
 
+  const dispatch = useDispatch();
+
+  const handleRefresh = () => {
+    dispatch(
+      pokemonApi.util.invalidateTags([{ type: 'PokemonList', id: page }])
+    );
+  };
+
   const handleSearch = (newQuery: string) => {
     setQuery(newQuery);
   };
+
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
 
+  const loading = isLoading || isFetching;
   return (
     <div className={styles.wrapper}>
-      <SearchForm query={query} onSubmit={handleSearch} />
+      <SearchForm
+        query={query}
+        onSubmit={handleSearch}
+        onRefresh={handleRefresh}
+      />
       <Pagination
-        isLoading={isFetching}
+        isLoading={loading}
         page={page}
         totalPages={(pokemonsData && Math.ceil(pokemonsData?.count / 20)) || 1}
         onPageChange={handlePageChange}
@@ -39,7 +57,7 @@ export const MainPage = () => {
         <div className={styles['left-column']}>
           <ResultList
             pokemons={pokemonsData?.results || []}
-            isLoading={isLoading}
+            isLoading={loading}
             // error={error}
           />
         </div>
@@ -49,8 +67,13 @@ export const MainPage = () => {
           </div>
         )}
       </div>
-
-      {isLoading && (
+      <Pagination
+        isLoading={loading}
+        page={page}
+        totalPages={(pokemonsData && Math.ceil(pokemonsData?.count / 20)) || 1}
+        onPageChange={handlePageChange}
+      />
+      {loading && (
         <div className={styles.loader} data-testid="loader">
           <Loader />
         </div>

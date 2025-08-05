@@ -4,9 +4,11 @@ import styles from './SearchForm.module.css';
 export const SearchForm = ({
   query = '',
   onSubmit,
+  onRefresh,
 }: {
   query?: string;
   onSubmit: (query: string) => void;
+  onRefresh: () => void;
 }) => {
   const [searchQuery, setSearchQuery] = useState(query);
 
@@ -41,6 +43,9 @@ export const SearchForm = ({
         disabled={searchQuery === ''}
       >
         Clear
+      </button>
+      <button onClick={onRefresh} className={styles.clear}>
+        Refresh
       </button>
     </form>
   );

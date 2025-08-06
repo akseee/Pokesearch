@@ -32,6 +32,15 @@
   pointer-events: none;
 }
 
+.submit {
+  min-width: 100px;
+}
+
+.submit div div {
+  max-width: 20px;
+  max-height: 20px;
+}
+
 @media (max-width: 768px) {
   .form {
     gap: 0.5em;

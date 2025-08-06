@@ -39,12 +39,14 @@ export const MainPage = () => {
   };
 
   const loading = isLoading || isFetching;
+
   return (
     <div className={styles.wrapper}>
       <SearchForm
         query={query}
         onSubmit={handleSearch}
         onRefresh={handleRefresh}
+        isLoading={loading}
       />
       <Pagination
         isLoading={loading}

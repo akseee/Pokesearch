@@ -5,12 +5,13 @@ import {
   PokemonSkeletonCard,
   usePokemonData,
 } from '../../../entities/pokemon';
+import { getErrorMessage } from '../../../shared/api/getErrorMessage';
 
 export const DetailedCardPage = () => {
   const { pokemon } = useParams();
   const pokemonName = pokemon ?? '';
 
-  const { pokemonData, isLoading } = usePokemonData(pokemonName);
+  const { pokemonData, isLoading, error } = usePokemonData(pokemonName);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,6 +25,8 @@ export const DetailedCardPage = () => {
     return <PokemonSkeletonCard />;
   }
 
+  const errorMessage = getErrorMessage(error);
+
   return (
     <>
       <button className={styles.button} onClick={handleCloseClick}>
@@ -33,7 +36,7 @@ export const DetailedCardPage = () => {
         <DetailedCard
           key={pokemonName}
           pokemonData={pokemonData}
-          error={null}
+          error={errorMessage || undefined}
         />
       ) : (
         <PokemonSkeletonCard />

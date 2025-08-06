@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState, useRef } from 'react';
 import styles from './Flyout.module.css';
 
 import { useDispatch } from '../../../app/store';
@@ -8,6 +8,9 @@ import { pokemonsActions, pokemonsSelectors } from '../../../entities/pokemon';
 
 export const Flyout = () => {
   const dispatch = useDispatch();
+
+  const [csvUrl, setCsvUrl] = useState<string | null>(null);
+  const downloadRef = useRef<HTMLAnchorElement>(null);
 
   const count = useSelector(pokemonsSelectors.getSelectedCount);
   const selectedPokemons = useSelector(
@@ -19,8 +22,18 @@ export const Flyout = () => {
   };
 
   const onDownloadClick = () => {
-    downloadCSV(selectedPokemons);
-    dispatch(pokemonsActions.clearPokemons());
+    const blob = downloadCSV(selectedPokemons);
+    const url = URL.createObjectURL(blob);
+    setCsvUrl(url);
+
+    setTimeout(() => {
+      if (downloadRef.current) {
+        downloadRef.current.click();
+        URL.revokeObjectURL(url);
+        setCsvUrl(null);
+      }
+      dispatch(pokemonsActions.clearPokemons());
+    }, 0);
   };
 
   return (
@@ -32,6 +45,12 @@ export const Flyout = () => {
           </span>
           <button onClick={onUnselectAll}>Unselect all</button>
           <button onClick={onDownloadClick}>Download</button>
+          <a
+            ref={downloadRef}
+            href={csvUrl ?? ''}
+            className={styles.blob}
+            download={`${selectedPokemons.length}_selected-pokemons.csv`}
+          />
         </div>
       )}
     </Fragment>

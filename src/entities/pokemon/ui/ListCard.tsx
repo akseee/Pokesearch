@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { useGetOnePokemonQuery } from '../../../shared/api/pokemonApi';
 import { PokemonSkeletonCard } from './PokemonCardSkeleton';
 import { tranformPokemonData } from '../../../shared/lib/transformPokemonData';
+import { getErrorMessage } from '../../../shared/api/getErrorMessage';
 
 export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
   const {
@@ -26,14 +27,30 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
   const dispatch = useDispatch();
   const isSelected = useSelector(getSpecificPokemonData(pokemon.name));
 
-  if (errorPokemon) return `Could not load data about ${pokemon.name}`;
-
   if (isLoadingPokemon) {
     return <PokemonSkeletonCard />;
   }
 
   if (!pokemonData) {
-    return <div>No data found</div>;
+    return (
+      <li className={styles['card-layout-wrapper']}>
+        <div className={styles['error-card']}>
+          <p className={styles['error-message']}>No data available.</p>
+        </div>
+      </li>
+    );
+  }
+
+  if (errorPokemon) {
+    return (
+      <li className={styles['card-layout-wrapper']}>
+        <div className={styles['error-card']}>
+          <p className={styles['error-message']}>
+            {getErrorMessage(errorPokemon)}
+          </p>
+        </div>
+      </li>
+    );
   }
 
   const data = tranformPokemonData(pokemonData);

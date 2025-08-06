@@ -10,6 +10,7 @@ import {
   useGetManyPokemonsQuery,
 } from '../../../shared/api/pokemonApi';
 import { useDispatch } from '../../../app/store';
+import { getErrorMessage } from '../../../shared/api/getErrorMessage';
 
 export const MainPage = () => {
   const { query, page, setQuery, setPage } = useSearchQueryParams();
@@ -19,7 +20,7 @@ export const MainPage = () => {
     data: pokemonsData,
     isLoading,
     isFetching,
-    // error,
+    error,
   } = useGetManyPokemonsQuery({ query, page });
 
   const dispatch = useDispatch();
@@ -39,6 +40,9 @@ export const MainPage = () => {
   };
 
   const loading = isLoading || isFetching;
+  const errorMessage = getErrorMessage(error);
+
+  const totalPages = pokemonsData ? Math.ceil(pokemonsData.count / 20) : 1;
 
   return (
     <div className={styles.wrapper}>
@@ -51,7 +55,7 @@ export const MainPage = () => {
       <Pagination
         isLoading={loading}
         page={page}
-        totalPages={(pokemonsData && Math.ceil(pokemonsData?.count / 20)) || 1}
+        totalPages={totalPages}
         onPageChange={handlePageChange}
       />
 
@@ -60,7 +64,7 @@ export const MainPage = () => {
           <ResultList
             pokemons={pokemonsData?.results || []}
             isLoading={loading}
-            // error={error}
+            error={errorMessage || undefined}
           />
         </div>
         {pokemon && (
@@ -72,7 +76,7 @@ export const MainPage = () => {
       <Pagination
         isLoading={loading}
         page={page}
-        totalPages={(pokemonsData && Math.ceil(pokemonsData?.count / 20)) || 1}
+        totalPages={totalPages}
         onPageChange={handlePageChange}
       />
       {loading && (

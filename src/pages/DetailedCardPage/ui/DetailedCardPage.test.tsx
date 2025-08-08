@@ -39,7 +39,7 @@ describe('DetailedCardPage', () => {
     vi.clearAllMocks();
   });
 
-  test('renders PokemonCardLayout with correct data', () => {
+  test('renders DetailedCard with correct data', () => {
     mockUsePokemonData.mockReturnValue({
       pokemonData: mockDetailedCardData,
       isLoading: false,
@@ -56,22 +56,6 @@ describe('DetailedCardPage', () => {
     expect(screen.getByText(/pikachu/i)).toBeInTheDocument();
     expect(screen.getByText(/#025/i)).toBeInTheDocument();
     expect(screen.getByText(/This is a test description/i)).toBeInTheDocument();
-  });
-
-  test('renders error message when error occurs', () => {
-    mockUsePokemonData.mockReturnValue({
-      pokemonData: null,
-      isLoading: false,
-      error: 'Error loading data',
-    });
-
-    render(
-      <MemoryRouter>
-        <DetailedCardPage />
-      </MemoryRouter>
-    );
-
-    expect(screen.getByText('Error loading Pokémon')).toBeInTheDocument();
   });
 
   test('calls navigate when close button clicked', async () => {

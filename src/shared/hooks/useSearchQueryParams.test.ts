@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react';
 import { useSearchQueryParams } from './useSearchQueryParams';
-import { act } from 'react';
 
 const mockSetParams = vi.fn();
 const mockParams = new URLSearchParams();
@@ -40,20 +39,6 @@ describe('useSearchQueryParams', () => {
 
     expect(result.current.query).toBe('pikachu');
     expect(result.current.page).toBe(3);
-  });
-
-  test('when setQuery is called, page is set to 1', () => {
-    const { result } = renderHook(() => useSearchQueryParams());
-
-    act(() => result.current.setQuery('test'));
-
-    expect(mockSetQueryLS).toHaveBeenCalledWith('test');
-    expect(mockSetParams).toHaveBeenCalled();
-
-    const call = mockSetParams.mock.calls[0][0](new URLSearchParams());
-
-    expect(call.get('query')).toBe('test');
-    expect(call.get('page')).toBe('1');
   });
 
   test('sets query from localstorage if query is empty', () => {

@@ -12,7 +12,6 @@ export interface RawPokemonResponse {
   name: string;
   id: number;
   order: number;
-  description: string;
   sprites: {
     other: {
       ['official-artwork']?: {

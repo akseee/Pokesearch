@@ -1,4 +1,3 @@
-import { PokemonSkeletonCard } from './PokemonCardSkeleton';
 import styles from './DetailedCard.module.css';
 import PokemonStatsList from '../../../shared/ui/PokemonCardLayout/PokemonStatsList';
 import type { PokemonData } from '../../../shared/types/pokemon.types';
@@ -10,8 +9,6 @@ export const DetailedCard = ({
   pokemonData: PokemonData;
   error?: string;
 }) => {
-  if (!pokemonData) return <PokemonSkeletonCard />;
-
   if (error) {
     return (
       <div className={styles['card-layout-wrapper']}>failed to load data</div>

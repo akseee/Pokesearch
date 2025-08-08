@@ -16,26 +16,13 @@ vi.mock('../PokemonStatsList', () => ({
 }));
 
 describe('DetailedCard', () => {
-  test('should show skeleton when loading', () => {
-    render(<DetailedCard pokemonData={null} isLoading={true} error={null} />);
-    expect(screen.getByTestId('skeleton-card')).toBeInTheDocument();
-  });
-
   test('should show erorr text', () => {
-    render(
-      <DetailedCard
-        pokemonData={pikachu}
-        isLoading={false}
-        error="failed to load data"
-      />
-    );
+    render(<DetailedCard pokemonData={pikachu} error="failed to load data" />);
     expect(screen.getByText('failed to load data')).toBeInTheDocument();
   });
 
   test('should show detailed information', () => {
-    render(
-      <DetailedCard pokemonData={pikachu} isLoading={false} error={null} />
-    );
+    render(<DetailedCard pokemonData={pikachu} />);
 
     expect(screen.getByText('pikachu')).toBeInTheDocument();
     expect(screen.getByText('electric')).toBeInTheDocument();

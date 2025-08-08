@@ -7,10 +7,12 @@ export const ThemeButton = () => {
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
+
   return (
     <button onClick={toggleTheme}>
       {theme === 'light' ? (
         <svg
+          data-testid="sun-icon"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -33,6 +35,7 @@ export const ThemeButton = () => {
         </svg>
       ) : (
         <svg
+          data-testid="moon-icon"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"

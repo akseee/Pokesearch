@@ -1,7 +1,11 @@
-import type { NamedAPIResource } from '../api/api.types';
+import type {
+  NamedAPIResource,
+  RawPokemonResponse,
+  RawPokemonSpeciesResponse,
+} from '../api/api.types';
 import type { PokemonData } from '../types/pokemon.types';
 
-export const mockPokemonResponse = {
+export const mockPokemonResponse: RawPokemonResponse = {
   name: 'pikachu',
   id: 25,
   order: 25,
@@ -16,10 +20,10 @@ export const mockPokemonResponse = {
     { base_stat: 35, stat: { name: 'hp' } },
     { base_stat: 55, stat: { name: 'attack' } },
   ],
-  description: 'test',
+  species: { url: 'https://pokeapi.co/api/v2/pokemon-species/pikachu' },
 };
 
-export const mockSpeciesResponse = {
+export const mockSpeciesResponse: RawPokemonSpeciesResponse = {
   flavor_text_entries: [
     {
       flavor_text: 'This is a test description',

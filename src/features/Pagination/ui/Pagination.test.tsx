@@ -9,6 +9,7 @@ describe('Pagination', () => {
         page={page}
         totalPages={totalPages}
         onPageChange={onPageChange}
+        isLoading={false}
       />
     );
     return { onPageChange };

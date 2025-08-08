@@ -1,10 +1,17 @@
-import type { PokemonData } from '../../../shared/types/pokemon.types';
+export interface ApiResponse<T> {
+  count: number;
+  results: T[];
+}
+
+export interface NamedAPIResource {
+  name: string;
+  url: string;
+}
 
 export interface RawPokemonResponse {
   name: string;
   id: number;
   order: number;
-  description: string;
   sprites: {
     other: {
       ['official-artwork']?: {
@@ -17,10 +24,12 @@ export interface RawPokemonResponse {
   };
   types: { type: { name: string } }[];
   stats: { base_stat: number; stat: { name: string } }[];
+  species: { url: string };
 }
 
-export interface PokemonCardState {
-  pokemonData: PokemonData | null;
-  isLoading: boolean;
-  error: string | null;
+export interface RawPokemonSpeciesResponse {
+  flavor_text_entries: {
+    flavor_text: string;
+    language: { name: string };
+  }[];
 }

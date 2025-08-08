@@ -1,10 +1,10 @@
-import { getPokemonStats } from '../../../shared/lib/getPokemonStats';
-import type { PokemonData } from '../../../shared/types/pokemon.types';
-import type { RawPokemonResponse } from './types';
+import type { RawPokemonResponse } from '../api/api.types';
+import type { PokemonData } from '../types/pokemon.types';
+import { getPokemonStats } from './getPokemonStats';
 
 export function tranformPokemonData(
   raw: RawPokemonResponse,
-  description: string | null
+  description?: string | null
 ): PokemonData {
   const statMap: Record<string, number> = {};
 

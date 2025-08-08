@@ -1,1 +1,2 @@
 npm run check:fix
+npm run test

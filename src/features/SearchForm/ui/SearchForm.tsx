@@ -1,12 +1,17 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import styles from './SearchForm.module.css';
+import { Loader } from '../../../shared/ui/Loader/Loader';
 
 export const SearchForm = ({
   query = '',
   onSubmit,
+  onRefresh,
+  isLoading,
 }: {
   query?: string;
   onSubmit: (query: string) => void;
+  onRefresh: () => void;
+  isLoading: boolean;
 }) => {
   const [searchQuery, setSearchQuery] = useState(query);
 
@@ -34,13 +39,18 @@ export const SearchForm = ({
         onChange={handleInputChange}
         placeholder="Search…"
       />
-      <button type="submit">Find!</button>
+      <button type="submit" className={styles.submit}>
+        {isLoading ? <Loader /> : 'Find!'}
+      </button>
       <button
         onClick={handleClear}
         className={styles.clear}
         disabled={searchQuery === ''}
       >
         Clear
+      </button>
+      <button onClick={onRefresh} className={styles.clear}>
+        Refresh
       </button>
     </form>
   );

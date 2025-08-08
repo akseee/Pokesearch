@@ -5,14 +5,17 @@ import {
   useSelector as selectorHook,
 } from 'react-redux';
 import { pokemonsReducer } from '../entities/pokemon';
+import { pokemonApi } from '../shared/api/pokemonApi';
 
 export const rootReducer = combineReducers({
   pokemons: pokemonsReducer,
+  [pokemonApi.reducerPath]: pokemonApi.reducer,
 });
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(pokemonApi.middleware),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

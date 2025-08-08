@@ -5,13 +5,31 @@ import { Loader } from '../../../shared/ui/Loader/Loader';
 import { Pagination } from '../../../features/Pagination';
 import { Outlet, useParams } from 'react-router';
 import { useSearchQueryParams } from '../../../shared/hooks/useSearchQueryParams';
-import { usePokemonsListData } from '../../../entities/pokemon';
+import {
+  pokemonApi,
+  useGetManyPokemonsQuery,
+} from '../../../shared/api/pokemonApi';
+import { useDispatch } from '../../../app/store';
+import { getErrorMessage } from '../../../shared/api/getErrorMessage';
 
 export const MainPage = () => {
   const { query, page, setQuery, setPage } = useSearchQueryParams();
   const { pokemon } = useParams();
 
-  const { pokemonsData, isLoading, error } = usePokemonsListData(query, page);
+  const {
+    data: pokemonsData,
+    isLoading,
+    isFetching,
+    error,
+  } = useGetManyPokemonsQuery({ query, page });
+
+  const dispatch = useDispatch();
+
+  const handleRefresh = () => {
+    dispatch(
+      pokemonApi.util.invalidateTags([{ type: 'PokemonList', id: page }])
+    );
+  };
 
   const handleSearch = (newQuery: string) => {
     setQuery(newQuery);
@@ -21,12 +39,23 @@ export const MainPage = () => {
     setPage(newPage);
   };
 
+  const loading = isLoading || isFetching;
+  const errorMessage = getErrorMessage(error);
+
+  const totalPages = pokemonsData ? Math.ceil(pokemonsData.count / 20) : 1;
+
   return (
     <div className={styles.wrapper}>
-      <SearchForm query={query} onSubmit={handleSearch} />
+      <SearchForm
+        query={query}
+        onSubmit={handleSearch}
+        onRefresh={handleRefresh}
+        isLoading={loading}
+      />
       <Pagination
+        isLoading={loading}
         page={page}
-        totalPages={(pokemonsData && Math.ceil(pokemonsData?.count / 20)) || 1}
+        totalPages={totalPages}
         onPageChange={handlePageChange}
       />
 
@@ -34,8 +63,8 @@ export const MainPage = () => {
         <div className={styles['left-column']}>
           <ResultList
             pokemons={pokemonsData?.results || []}
-            isLoading={isLoading}
-            error={error}
+            isLoading={loading}
+            error={errorMessage || undefined}
           />
         </div>
         {pokemon && (
@@ -44,8 +73,13 @@ export const MainPage = () => {
           </div>
         )}
       </div>
-
-      {isLoading && (
+      <Pagination
+        isLoading={loading}
+        page={page}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
+      {loading && (
         <div className={styles.loader} data-testid="loader">
           <Loader />
         </div>

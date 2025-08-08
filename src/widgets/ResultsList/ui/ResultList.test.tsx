@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import type { NamedAPIResource } from '../../../shared/types/api.types';
+import type { NamedAPIResource } from '../../../shared/api/api.types';
 import { ResultList } from './ResultList';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
@@ -23,7 +23,7 @@ describe('ResultList', () => {
   test('renders correct number of items when data is provided', () => {
     render(
       <MemoryRouter>
-        <ResultList isLoading={false} pokemons={mockData} error={null} />
+        <ResultList isLoading={false} pokemons={mockData} />
       </MemoryRouter>
     );
     const cards = screen.getAllByTestId('pokemon-card');
@@ -46,7 +46,7 @@ describe('ResultList', () => {
   test('shows loading skeletons when loading', () => {
     render(
       <MemoryRouter>
-        <ResultList isLoading={true} pokemons={[]} error={null} />
+        <ResultList isLoading={true} pokemons={[]} />
       </MemoryRouter>
     );
     const skeletons = screen.getAllByTestId('skeleton-card');

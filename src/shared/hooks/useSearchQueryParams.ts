@@ -24,7 +24,6 @@ export function useSearchQueryParams() {
     setQueryLS(newQuery);
     setParams((prev) => {
       prev.set('query', newQuery);
-      prev.set('page', '1');
       return prev;
     });
   };

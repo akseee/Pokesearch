@@ -1,4 +1,4 @@
-import type { RawPokemonResponse } from '../../entities/pokemon/model/types';
+import type { RawPokemonResponse } from '../api/api.types';
 import type { PokemonStats } from '../types/pokemon.types';
 
 export function getPokemonStats(

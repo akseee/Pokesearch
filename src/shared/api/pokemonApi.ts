@@ -31,7 +31,7 @@ export const pokemonApi = createApi({
             ? `/pokemon/${name}`
             : source.url.replace(BASE_API, '');
         },
-        providesTags: (result, error, arg) => [
+        providesTags: (_, __, arg) => [
           { type: 'Pokemon', id: typeof arg === 'string' ? arg : arg.name },
         ],
       }
@@ -62,9 +62,7 @@ export const pokemonApi = createApi({
         }
         return response;
       },
-      providesTags: (result, error, arg) => [
-        { type: 'PokemonList', id: arg.page },
-      ],
+      providesTags: (_, __, arg) => [{ type: 'PokemonList', id: arg.page }],
     }),
   }),
 });

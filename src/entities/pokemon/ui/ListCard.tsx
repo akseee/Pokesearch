@@ -1,8 +1,6 @@
-import { useLocation, useNavigate } from 'react-router';
 import type { NamedAPIResource } from '../../../shared/api/api.types';
 import styles from './ListCard.module.css';
 import { Loader } from '../../../shared/ui/Loader/Loader';
-import { useDispatch } from '../../../app/store';
 import { type MouseEvent } from 'react';
 import {
   getSpecificPokemonData,
@@ -13,6 +11,7 @@ import { useGetOnePokemonQuery } from '../../../shared/api/pokemonApi';
 import { PokemonSkeletonCard } from './PokemonCardSkeleton';
 import { tranformPokemonData } from '../../../shared/lib/transformPokemonData';
 import { getErrorMessage } from '../../../shared/api/getErrorMessage';
+import { useDispatch } from '../../../shared/config/store/store';
 
 export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
   const {
@@ -21,8 +20,8 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
     error: errorPokemon,
   } = useGetOnePokemonQuery(pokemon);
 
-  const navigate = useNavigate();
-  const location = useLocation();
+  // const navigate = useNavigate();
+  // const location = useLocation();
 
   const dispatch = useDispatch();
   const isSelected = useSelector(getSpecificPokemonData(pokemon.name));
@@ -56,8 +55,8 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
   const data = tranformPokemonData(pokemonData);
 
   const handleCardClick = () => {
-    const search = location.search;
-    navigate({ pathname: `/pokemon/${pokemon.name}`, search });
+    // const search = location.search;
+    // navigate({ pathname: `/pokemon/${pokemon.name}`, search });
   };
 
   const handleCheckboxClick = (event: MouseEvent<HTMLInputElement>) => {

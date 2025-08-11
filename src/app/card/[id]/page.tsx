@@ -1,24 +1,25 @@
-import { useLocation, useNavigate, useParams } from 'react-router';
-import styles from './DetailedCardPage.module.css';
 import {
   DetailedCard,
   PokemonSkeletonCard,
   usePokemonData,
 } from '../../../entities/pokemon';
 import { getErrorMessage } from '../../../shared/api/getErrorMessage';
+import styles from './page.module.css';
 
 export const DetailedCardPage = () => {
-  const { pokemon } = useParams();
-  const pokemonName = pokemon ?? '';
+  // const { pokemon } = useParams();
+  // const pokemonName = pokemon ?? '';
+  const pokemonName = 'pikachu';
 
+  // const { pokemonData, isLoading, error } = usePokemonData(pokemonName);
   const { pokemonData, isLoading, error } = usePokemonData(pokemonName);
 
-  const navigate = useNavigate();
-  const location = useLocation();
+  // const navigate = useNavigate();
+  // const location = useLocation();
 
   const handleCloseClick = () => {
-    const search = location.search;
-    navigate({ pathname: '/', search });
+    // const search = location.search;
+    // navigate({ pathname: '/', search });
   };
 
   if (isLoading) {

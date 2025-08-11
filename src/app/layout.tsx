@@ -1,20 +1,26 @@
 import type { Metadata } from 'next';
-import { ReactNode } from 'react';
+import '../shared/styles/index.ts';
+import styles from './layout.module.css';
+import ClientProvider from './ClientProvider';
 
 export const metadata: Metadata = {
   title: 'PokéDexplorer',
   description:
     'This is an application where you can find data about pokemon of your interest!',
-  icons: {
-    icon: '/favicon.svg',
-  },
+  icons: { icon: '/favicon.svg' },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>
-        <div id="root">{children}</div>
+        <ClientProvider>
+          <main className={styles.main}>{children}</main>
+        </ClientProvider>
       </body>
     </html>
   );

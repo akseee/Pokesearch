@@ -1,10 +1,10 @@
 import { Fragment, useState, useRef } from 'react';
 import styles from './Flyout.module.css';
 
-import { useDispatch } from '../../../app/store';
 import { useSelector } from 'react-redux';
 import { downloadCSV } from '../model/downloadCSV';
 import { pokemonsActions, pokemonsSelectors } from '../../../entities/pokemon';
+import { useDispatch } from '../../../shared/config/store/store';
 
 export const Flyout = () => {
   const dispatch = useDispatch();

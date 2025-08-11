@@ -1,4 +1,4 @@
-import styles from './AboutPage.module.css';
+import styles from './page.module.css';
 
 export const AboutPage = () => {
   return (

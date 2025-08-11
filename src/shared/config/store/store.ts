@@ -4,8 +4,8 @@ import {
   useDispatch as dispatchHook,
   useSelector as selectorHook,
 } from 'react-redux';
-import { pokemonsReducer } from '../entities/pokemon';
-import { pokemonApi } from '../shared/api/pokemonApi';
+import { pokemonApi } from '../../api/pokemonApi';
+import { pokemonsReducer } from '../../../entities/pokemon';
 
 export const rootReducer = combineReducers({
   pokemons: pokemonsReducer,

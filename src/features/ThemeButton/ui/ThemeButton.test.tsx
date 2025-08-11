@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { ThemeButton } from './ThemeButton';
 import userEvent from '@testing-library/user-event';
-import { ThemeContext } from '../../../shared/config/context/context';
+import { ThemeContext } from '../../../shared/config/context/ThemeContext';
 
 const mockSetTheme = vi.fn();
 

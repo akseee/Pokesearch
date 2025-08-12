@@ -1,9 +1,19 @@
 'use client';
-import { useContext } from 'react';
+
+import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../../../shared/config/context/ThemeContext';
 
 export const ThemeButton = () => {
   const { theme, setTheme } = useContext(ThemeContext);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
@@ -13,7 +23,6 @@ export const ThemeButton = () => {
     <button onClick={toggleTheme}>
       {theme === 'light' ? (
         <svg
-          data-testid="sun-icon"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -36,7 +45,6 @@ export const ThemeButton = () => {
         </svg>
       ) : (
         <svg
-          data-testid="moon-icon"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"

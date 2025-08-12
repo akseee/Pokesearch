@@ -1,6 +1,6 @@
 import styles from './DetailedCard.module.css';
-import PokemonStatsList from '../../../shared/ui/PokemonCardLayout/PokemonStatsList';
 import type { PokemonData } from '../../../shared/types/pokemon.types';
+import { PokemonStatsList } from '../../../shared/ui/PokemonCardLayout/PokemonStatsList';
 
 export const DetailedCard = ({
   pokemonData,

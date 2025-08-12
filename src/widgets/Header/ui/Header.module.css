@@ -28,6 +28,10 @@
   color: var(--color-white);
 }
 
+.title a:hover,
+.title a:focus {
+  color: var(--color-white);
+}
 .text {
   margin: 0;
   color: var(--color-white);

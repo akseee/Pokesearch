@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Loader } from '../Loader/Loader';
 import type { PokemonStats } from '../../types/pokemon.types';
 import styles from './PokemonCardLayout.module.css';
-import PokemonStatsList from './PokemonStatsList';
+import { PokemonStatsList } from './PokemonStatsList';
 
 interface PokemonCardLayoutProps {
   loading?: boolean;

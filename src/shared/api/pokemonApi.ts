@@ -41,7 +41,7 @@ export const pokemonApi = createApi({
       { query?: string; page?: number }
     >({
       query: ({ query, page = 1 }) => {
-        if (query) return `/${query.toLowerCase()}`;
+        if (query) return `/pokemon/${query.toLowerCase()}`;
         const offset = (page - 1) * 20;
         return `/pokemon?limit=20&offset=${offset}`;
       },

@@ -1,3 +1,4 @@
+'use client';
 import { Fragment, useState, useRef } from 'react';
 import styles from './Flyout.module.css';
 

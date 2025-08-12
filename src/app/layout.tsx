@@ -10,18 +10,16 @@ export const metadata: Metadata = {
   icons: { icon: '/favicon.svg' },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <ClientProvider>
-          <main className={styles.main}>{children}</main>
-        </ClientProvider>
+        <main className={styles.main}>
+          <ClientProvider>{children} </ClientProvider>
+        </main>
       </body>
     </html>
   );
 }
+
+export default RootLayout;

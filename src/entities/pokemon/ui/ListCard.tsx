@@ -12,6 +12,7 @@ import { PokemonSkeletonCard } from './PokemonCardSkeleton';
 import { tranformPokemonData } from '../../../shared/lib/transformPokemonData';
 import { getErrorMessage } from '../../../shared/api/getErrorMessage';
 import { useDispatch } from '../../../shared/config/store/store';
+import { useRouter } from 'next/navigation';
 
 export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
   const {
@@ -20,8 +21,7 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
     error: errorPokemon,
   } = useGetOnePokemonQuery(pokemon);
 
-  // const navigate = useNavigate();
-  // const location = useLocation();
+  const router = useRouter();
 
   const dispatch = useDispatch();
   const isSelected = useSelector(getSpecificPokemonData(pokemon.name));
@@ -55,8 +55,7 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
   const data = tranformPokemonData(pokemonData);
 
   const handleCardClick = () => {
-    // const search = location.search;
-    // navigate({ pathname: `/pokemon/${pokemon.name}`, search });
+    router.push(`/pokemon/${pokemon.name}`, { scroll: false });
   };
 
   const handleCheckboxClick = (event: MouseEvent<HTMLInputElement>) => {

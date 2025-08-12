@@ -1,50 +1,42 @@
-// import { STORAGE_KEYS } from '../lib/constants';
-// import { useEffect } from 'react';
-// import { useLocalStorage } from './useLocalStorage';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useLocalStorage } from './useLocalStorage';
+import { STORAGE_KEYS } from '../lib/constants';
+import { useCallback, useEffect } from 'react';
 
-export function useSearchQueryParams() {
-  // const [params, setParams] = useSearchParams();
-  // const { queryLS, setQueryLS } = useLocalStorage(STORAGE_KEYS.POKEMON_QUERY);
+function useSearchQueryParams() {
+  const params = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  // const query = params.get('query') ?? '';
-  // const page = Number(params.get('page')) || 1;
+  const { queryLS, setQueryLS } = useLocalStorage(STORAGE_KEYS.POKEMON_QUERY);
 
-  // useEffect(() => {
-  //   if (!query && queryLS) {
-  //     setParams((prev) => {
-  //       prev.set('query', queryLS);
-  //       prev.set('page', '1');
-  //       return prev;
-  //     });
-  //   }
-  // }, [query, queryLS, setParams]);
+  const query = params?.get('query') ?? '';
+  const page = Number(params?.get('page')) || 1;
 
-  // const setQuery = (newQuery: string) => {
-  //   setQueryLS(newQuery);
-  //   setParams((prev) => {
-  //     prev.set('query', newQuery);
-  //     return prev;
-  //   });
-  // };
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const param = new URLSearchParams(params?.toString());
+      param.set(name, value);
+      return param.toString();
+    },
+    [params]
+  );
 
-  // const setPage = (newPage: number) => {
-  //   setParams((prev) => {
-  //     prev.set('page', newPage.toString());
-  //     return prev;
-  //   });
-  // };
-
-  // const clearAll = () => {
-  //   setQueryLS('');
-  //   setParams(new URLSearchParams());
-  // };
-
-  // return { query, page, setQuery, setPage, clearAll };
-  return {
-    query: '',
-    page: 1,
-    setQuery: (_: string) => {},
-    setPage: (_: number) => {},
-    clearAll: () => {},
+  const setQuery = (newQuery: string) => {
+    setQueryLS(newQuery);
+    router.push(pathname + '?' + createQueryString('query', newQuery));
   };
+
+  const setPage = (newPage: number) => {
+    router.push(pathname + '?' + createQueryString('page', newPage.toString()));
+  };
+
+  useEffect(() => {
+    if (!query && queryLS) {
+      router.replace(pathname + '?' + createQueryString('query', queryLS));
+    }
+  }, [query, queryLS, pathname, router, createQueryString]);
+
+  return { query, page, setQuery, setPage };
 }
+export default useSearchQueryParams;

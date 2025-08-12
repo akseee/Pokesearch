@@ -8,7 +8,7 @@ import { Header } from '../widgets/Header';
 import { Flyout } from '../widgets/Flyout/ui/Flyout';
 import store from '../shared/config/store/store';
 
-export default function ClientProvider({ children }: { children: ReactNode }) {
+function ClientProvider({ children }: { children: ReactNode }) {
   const prefersDark =
     typeof window !== 'undefined'
       ? window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -33,3 +33,5 @@ export default function ClientProvider({ children }: { children: ReactNode }) {
     </LanguageContext.Provider>
   );
 }
+
+export default ClientProvider;

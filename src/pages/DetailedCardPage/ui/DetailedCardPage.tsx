@@ -1,25 +1,28 @@
+'use client';
+import { useRouter } from 'next/navigation';
 import {
   DetailedCard,
   PokemonSkeletonCard,
   usePokemonData,
 } from '../../../entities/pokemon';
 import { getErrorMessage } from '../../../shared/api/getErrorMessage';
-import styles from './page.module.css';
+import styles from './DetailedCardPage.module.css';
+import { useParams } from 'next/navigation';
 
 export const DetailedCardPage = () => {
-  // const { pokemon } = useParams();
-  // const pokemonName = pokemon ?? '';
-  const pokemonName = 'pikachu';
+  const router = useRouter();
+  const params = useParams();
 
-  // const { pokemonData, isLoading, error } = usePokemonData(pokemonName);
-  const { pokemonData, isLoading, error } = usePokemonData(pokemonName);
+  const pokemonParam = params?.pokemon;
 
-  // const navigate = useNavigate();
-  // const location = useLocation();
+  const pokemon = Array.isArray(pokemonParam)
+    ? pokemonParam[0]
+    : pokemonParam || '';
+
+  const { pokemonData, isLoading, error } = usePokemonData(pokemon);
 
   const handleCloseClick = () => {
-    // const search = location.search;
-    // navigate({ pathname: '/', search });
+    router.push('/');
   };
 
   if (isLoading) {
@@ -35,7 +38,7 @@ export const DetailedCardPage = () => {
       </button>
       {pokemonData ? (
         <DetailedCard
-          key={pokemonName}
+          key={pokemon}
           pokemonData={pokemonData}
           error={errorMessage || undefined}
         />

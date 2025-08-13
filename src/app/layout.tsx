@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import '../shared/styles/index.ts';
 import styles from './layout.module.css';
-import ClientProvider from './ClientProvider';
+import { Header } from '../widgets/Header/index.ts';
+import { Flyout } from '../widgets/Flyout/ui/Flyout.tsx';
+import { AppProvider } from '../shared/config/providers/AppProvider.tsx';
 
 export const metadata: Metadata = {
   title: 'PokéDexplorer',
@@ -14,9 +16,13 @@ function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <main className={styles.main}>
-          <ClientProvider>{children} </ClientProvider>
-        </main>
+        <AppProvider>
+          <main className={styles.main}>
+            <Header />
+            {children}
+            <Flyout />
+          </main>
+        </AppProvider>
       </body>
     </html>
   );

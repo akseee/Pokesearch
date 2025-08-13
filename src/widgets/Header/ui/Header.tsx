@@ -1,9 +1,9 @@
 'use client';
 import styles from './Header.module.css';
-import { ThemeButton } from '../../../features/ThemeButton';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import { ThemeButton } from '../../../features/ThemeButton';
 
 export const Header = () => {
   const pathname = usePathname();

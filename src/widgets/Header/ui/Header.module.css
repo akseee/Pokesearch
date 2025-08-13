@@ -9,6 +9,9 @@
   box-sizing: border-box;
   width: 100%;
   padding: 0.5rem 3rem;
+  box-shadow:
+    -4px 0 6px rgba(0, 0, 0, 0.1),
+    4px 0 6px rgba(0, 0, 0, 0.1);
   background: var(--bg-header);
 }
 
@@ -32,6 +35,7 @@
 .title a:focus {
   color: var(--color-white);
 }
+
 .text {
   margin: 0;
   color: var(--color-white);

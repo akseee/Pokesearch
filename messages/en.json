@@ -1,6 +1,19 @@
 {
-  "HomePage": {
-    "title": "Привет, мир!",
-    "about": "Об авторе"
+  "about": {
+    "text1": "This is a learning project built as part of React and TypeScript development practice. It uses the PokeAPI — a public RESTful API that provides data about Pokémon.",
+    "text2": " The user can search for Pokémon by name, view detailed information about each one, and navigate through paginated search results. The  application features client-side routing, query parameter synchronization via the URL, dynamic data fetching, and  loading/error state handling.",
+    "text_thanks": "Thank you for checking out this project!",
+    "task_provided": "Task provided by",
+    "github": "My github:"
+  },
+  "header": {
+    "description": "Explore the Pokémon universe",
+    "nav": { "about": "About author", "main": "Home" }
+  },
+  "search": {
+    "find_btn": "Find!",
+    "clear_btn": "Clear",
+    "refetch_btn": "Refetch",
+    "palceholder_btn": "Search..."
   }
 }

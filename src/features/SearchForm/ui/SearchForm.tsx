@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import styles from './SearchForm.module.css';
 import { Loader } from '../../../shared/ui/Loader/Loader';
+import { useTranslations } from 'next-intl';
 
 export const SearchForm = ({
   query = '',
@@ -13,6 +14,7 @@ export const SearchForm = ({
   onRefresh: () => void;
   isLoading: boolean;
 }) => {
+  const t = useTranslations('search');
   const [searchQuery, setSearchQuery] = useState(query);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -37,20 +39,20 @@ export const SearchForm = ({
         className={styles.input}
         value={searchQuery}
         onChange={handleInputChange}
-        placeholder="Search…"
+        placeholder={t('palceholder_btn')}
       />
       <button type="submit" className={styles.submit}>
-        {isLoading ? <Loader /> : 'Find!'}
+        {isLoading ? <Loader /> : t('find_btn')}
       </button>
       <button
         onClick={handleClear}
         className={styles.clear}
         disabled={searchQuery === ''}
       >
-        Clear
+        {t('clear_btn')}
       </button>
       <button onClick={onRefresh} className={styles.clear}>
-        Refresh
+        {t('refetch_btn')}
       </button>
     </form>
   );

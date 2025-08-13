@@ -7,8 +7,10 @@ import {
   useRouter,
 } from '../../../shared/config/i18n/navigation';
 import { LanguageButton } from '../../../features/LanguageButton';
+import { useTranslations } from 'next-intl';
 
 export const Header = () => {
+  const t = useTranslations('header');
   const pathname = usePathname();
   const router = useRouter();
 
@@ -26,16 +28,16 @@ export const Header = () => {
         <h1 className={styles.title}>
           <Link href="/">PokéDexplorer</Link>
         </h1>
-        <p className={styles.text}>Explore the Pokémon universe</p>
+        <p className={styles.text}>{t('description')}</p>
       </div>
       <div className={styles['button-wrapper']}>
         {pathname !== '/' && (
           <button className={styles.list} onClick={handleMainClick}>
-            Main
+            {t('nav.main')}
           </button>
         )}
         <button className={styles.about} onClick={handlAboutClick}>
-          About
+          {t('nav.about')}
         </button>
         <ThemeButton />
         <LanguageButton />

@@ -6,6 +6,7 @@ import {
   usePathname,
   useRouter,
 } from '../../../shared/config/i18n/navigation';
+import { LanguageButton } from '../../../features/LanguageButton';
 
 export const Header = () => {
   const pathname = usePathname();
@@ -37,6 +38,7 @@ export const Header = () => {
           About
         </button>
         <ThemeButton />
+        <LanguageButton />
       </div>
     </header>
   );

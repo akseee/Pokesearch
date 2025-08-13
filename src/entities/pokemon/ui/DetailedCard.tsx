@@ -1,6 +1,7 @@
 import styles from './DetailedCard.module.css';
 import type { PokemonData } from '../../../shared/types/pokemon.types';
 import { PokemonStatsList } from '../../../shared/ui/PokemonCardLayout/PokemonStatsList';
+import Image from 'next/image';
 
 export const DetailedCard = ({
   pokemonData,
@@ -19,11 +20,12 @@ export const DetailedCard = ({
   return (
     <div data-id={name.toLowerCase()} className={styles['card-layout-wrapper']}>
       <div className={styles['image-container']}>
-        <img
+        <Image
           className={styles.image}
           src={image !== '' ? image : './placeholder.png'}
           alt={name}
-          loading="lazy"
+          width={90}
+          height={90}
         />
       </div>
       <div className={styles.title}>{name}</div>

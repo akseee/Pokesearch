@@ -13,6 +13,7 @@ import { tranformPokemonData } from '../../../shared/lib/transformPokemonData';
 import { getErrorMessage } from '../../../shared/api/getErrorMessage';
 import { useDispatch } from '../../../shared/config/store/store';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
   const {
@@ -94,11 +95,13 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
             <Loader />
           </div>
         ) : (
-          <img
+          <Image
             className={styles.image}
             src={image !== '' ? image : './placeholder.png'}
             alt={name}
             loading="lazy"
+            height={90}
+            width={90}
           />
         )}
       </div>

@@ -1,7 +1,8 @@
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useLocalStorage } from './useLocalStorage';
 import { STORAGE_KEYS } from '../lib/constants';
 import { useCallback, useEffect } from 'react';
+import { useRouter, usePathname } from '../config/i18n/navigation';
 
 function useSearchQueryParams() {
   const params = useSearchParams();

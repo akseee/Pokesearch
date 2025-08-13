@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { AboutPage } from '../../pages/AboutPage';
+import { AboutPage } from '../../../pages/AboutPage';
 
 export const metadata: Metadata = {
   title: 'PokéDexplorer. About',

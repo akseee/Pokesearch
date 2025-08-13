@@ -1,9 +1,11 @@
 'use client';
 import styles from './Header.module.css';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useRouter } from 'next/navigation';
 import { ThemeButton } from '../../../features/ThemeButton';
+import {
+  Link,
+  usePathname,
+  useRouter,
+} from '../../../shared/config/i18n/navigation';
 
 export const Header = () => {
   const pathname = usePathname();

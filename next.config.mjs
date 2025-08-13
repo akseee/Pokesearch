@@ -1,6 +1,7 @@
-/** @type {import('next').NextConfig} */
+import createNextIntlPlugin from 'next-intl/plugin';
+
 const nextConfig = {
-  distDir: './dist', // Changes the build output directory to `./dist/`.
+  distDir: './dist',
   images: {
     remotePatterns: [
       {
@@ -13,4 +14,7 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin(
+  './src/shared/config/i18n/request.ts'
+);
+export default withNextIntl(nextConfig);

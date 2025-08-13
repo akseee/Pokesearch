@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '../../../shared/config/i18n/navigation';
 import styles from './NotFoundPage.module.css';
 
 export const NotFoundPage = () => {

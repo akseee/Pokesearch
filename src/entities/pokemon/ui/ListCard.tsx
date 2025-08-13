@@ -12,8 +12,8 @@ import { PokemonSkeletonCard } from './PokemonCardSkeleton';
 import { tranformPokemonData } from '../../../shared/lib/transformPokemonData';
 import { getErrorMessage } from '../../../shared/api/getErrorMessage';
 import { useDispatch } from '../../../shared/config/store/store';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useRouter } from '../../../shared/config/i18n/navigation';
 
 export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
   const {

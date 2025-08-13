@@ -1,11 +1,11 @@
 'use client';
-import { useRouter } from 'next/navigation';
 import {
   DetailedCard,
   PokemonSkeletonCard,
   usePokemonData,
 } from '../../../entities/pokemon';
 import { getErrorMessage } from '../../../shared/api/getErrorMessage';
+import { useRouter } from '../../../shared/config/i18n/navigation';
 import styles from './DetailedCardPage.module.css';
 import { useParams } from 'next/navigation';
 

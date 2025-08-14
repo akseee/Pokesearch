@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import styles from './AboutPage.module.css';
 
-export const AboutPage = () => {
+const AboutPage = () => {
   const t = useTranslations('about');
   return (
     <div className={styles.wrapper}>
@@ -39,3 +39,4 @@ export const AboutPage = () => {
     </div>
   );
 };
+export default AboutPage;

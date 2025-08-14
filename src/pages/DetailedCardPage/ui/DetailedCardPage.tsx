@@ -9,7 +9,7 @@ import { useRouter } from '../../../shared/config/i18n/navigation';
 import styles from './DetailedCardPage.module.css';
 import { useParams } from 'next/navigation';
 
-export const DetailedCardPage = () => {
+const DetailedCardPage = () => {
   const router = useRouter();
   const params = useParams();
 
@@ -48,3 +48,5 @@ export const DetailedCardPage = () => {
     </>
   );
 };
+
+export default DetailedCardPage;

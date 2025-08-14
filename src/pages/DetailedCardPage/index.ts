@@ -1,1 +1,1 @@
-export { DetailedCardPage } from './ui/DetailedCardPage';
+export { default } from './ui/DetailedCardPage';

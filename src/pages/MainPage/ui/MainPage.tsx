@@ -10,10 +10,10 @@ import { useDispatch } from '../../../shared/config/store/store';
 import { SearchForm } from '../../../features/SearchForm';
 import { Pagination } from '../../../features/Pagination';
 import { useParams } from 'next/navigation';
-import { DetailedCardPage } from '../../DetailedCardPage';
 import { ResultList } from '../../../widgets/ResultsList';
 import { getErrorMessage } from '../../../shared/api/getErrorMessage';
 import useSearchQueryParams from '../../../shared/hooks/useSearchQueryParams';
+import DetailedCardPage from '../../DetailedCardPage';
 
 export const MainPage = () => {
   const { query, page, setQuery, setPage } = useSearchQueryParams();

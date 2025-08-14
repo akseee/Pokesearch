@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { MainPage } from '../../../../pages/MainPage';
+import { MainPage } from '../../../MainPage';
 
 export const metadata: Metadata = {
   title: 'PokéDexplorer. Pokémon',

@@ -1,6 +1,6 @@
 'use client';
 
-import { MainPage } from '../../pages/MainPage';
+import { MainPage } from '../MainPage';
 
 const Main = () => <MainPage />;
 

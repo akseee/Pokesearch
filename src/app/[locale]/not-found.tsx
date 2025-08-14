@@ -1,6 +1,6 @@
 'use client';
 
-import NotFoundPage from '../../pages/NotFound';
+import NotFoundPage from '../NotFoundPage';
 
 const Page = () => <NotFoundPage />;
 

@@ -1,7 +1,7 @@
 import { Link } from '../../../shared/config/i18n/navigation';
 import styles from './NotFoundPage.module.css';
 
-const NotFoundPage = () => {
+export default function NotFoundPage() {
   return (
     <div>
       <div className={styles.header}>
@@ -12,5 +12,4 @@ const NotFoundPage = () => {
       </div>
     </div>
   );
-};
-export default NotFoundPage;
+}

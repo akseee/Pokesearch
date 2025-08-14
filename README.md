@@ -8,7 +8,7 @@ A single-page application (SPA) built with TypeScript + React + Redux Toolkit. T
 - Pagination with current page reflected in the URL
 - Master-detail view via React Router
 - Save selected items and export as CSV
-- Theme switching (light / dark)
+- Theme switching (light / dark), language switching
 - Unit tests with >80% coverage
 - ErrorBoundary and error handling
 - Experimental FSD-inspired structure for feature isolation
@@ -18,12 +18,11 @@ A single-page application (SPA) built with TypeScript + React + Redux Toolkit. T
 ### Tech Stack
 
 - **Language**: TypeScript
-- **UI**: React (Function components + Hooks)
+- **Build Tool**: Next
+- **UI**: React
 - **State Management**: Redux Toolkit
 - **Router**: React Router
 - **Styling**: CSS Modules
-- **Testing**: Vitest + Testing Library
-- **Build Tool**: Vite
 
 ---
 

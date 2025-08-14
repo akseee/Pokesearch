@@ -1,33 +1,46 @@
-import { Link, useLocation, useNavigate } from 'react-router';
+'use client';
 import styles from './Header.module.css';
 import { ThemeButton } from '../../../features/ThemeButton';
+import {
+  Link,
+  usePathname,
+  useRouter,
+} from '../../../shared/config/i18n/navigation';
+import { LanguageButton } from '../../../features/LanguageButton';
+import { useTranslations } from 'next-intl';
 
 export const Header = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const t = useTranslations('header');
+  const pathname = usePathname();
+  const router = useRouter();
 
   const handleMainClick = () => {
-    navigate('/');
+    router.push('/');
+  };
+
+  const handlAboutClick = () => {
+    router.push('/about');
   };
 
   return (
     <header className={styles.wrapper}>
       <div className={styles['title-wrapper']}>
         <h1 className={styles.title}>
-          <Link to={'/'}>PokéDexplorer</Link>
+          <Link href="/">PokéDexplorer</Link>
         </h1>
-        <p className={styles.text}>Explore the Pokémon universe</p>
+        <p className={styles.text}>{t('description')}</p>
       </div>
       <div className={styles['button-wrapper']}>
-        {location.pathname !== '/' && (
+        {pathname !== '/' && (
           <button className={styles.list} onClick={handleMainClick}>
-            Main
+            {t('nav.main')}
           </button>
         )}
-        <button className={styles.about} onClick={() => navigate('/about')}>
-          About
+        <button className={styles.about} onClick={handlAboutClick}>
+          {t('nav.about')}
         </button>
         <ThemeButton />
+        <LanguageButton />
       </div>
     </header>
   );

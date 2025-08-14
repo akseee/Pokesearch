@@ -1,44 +1,43 @@
-import { useSearchParams } from 'react-router';
-import { STORAGE_KEYS } from '../lib/constants';
-import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useLocalStorage } from './useLocalStorage';
+import { STORAGE_KEYS } from '../lib/constants';
+import { useCallback, useEffect } from 'react';
+import { useRouter, usePathname } from '../config/i18n/navigation';
 
-export function useSearchQueryParams() {
-  const [params, setParams] = useSearchParams();
+function useSearchQueryParams() {
+  const params = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
   const { queryLS, setQueryLS } = useLocalStorage(STORAGE_KEYS.POKEMON_QUERY);
 
-  const query = params.get('query') ?? '';
-  const page = Number(params.get('page')) || 1;
+  const query = params?.get('query') ?? '';
+  const page = Number(params?.get('page')) || 1;
 
-  useEffect(() => {
-    if (!query && queryLS) {
-      setParams((prev) => {
-        prev.set('query', queryLS);
-        prev.set('page', '1');
-        return prev;
-      });
-    }
-  }, [query, queryLS, setParams]);
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const param = new URLSearchParams(params?.toString());
+      param.set(name, value);
+      return param.toString();
+    },
+    [params]
+  );
 
   const setQuery = (newQuery: string) => {
     setQueryLS(newQuery);
-    setParams((prev) => {
-      prev.set('query', newQuery);
-      return prev;
-    });
+    router.push(pathname + '?' + createQueryString('query', newQuery));
   };
 
   const setPage = (newPage: number) => {
-    setParams((prev) => {
-      prev.set('page', newPage.toString());
-      return prev;
-    });
+    router.push(pathname + '?' + createQueryString('page', newPage.toString()));
   };
 
-  const clearAll = () => {
-    setQueryLS('');
-    setParams(new URLSearchParams());
-  };
+  useEffect(() => {
+    if (!query && queryLS) {
+      router.replace(pathname + '?' + createQueryString('query', queryLS));
+    }
+  }, [query, queryLS, pathname, router, createQueryString]);
 
-  return { query, page, setQuery, setPage, clearAll };
+  return { query, page, setQuery, setPage };
 }
+export default useSearchQueryParams;

@@ -1,0 +1,7 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 90vh;
+  margin-bottom: 5em;
+}

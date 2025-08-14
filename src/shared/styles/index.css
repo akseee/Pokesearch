@@ -11,7 +11,8 @@ body {
     color var(--transition-smooth);
 }
 
-#root {
+body header,
+body main {
   max-width: 1440px;
   margin: 0 auto;
 }

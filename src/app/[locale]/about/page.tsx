@@ -3,7 +3,7 @@ import { AboutPage } from '../../../pages/AboutPage';
 
 export const metadata: Metadata = {
   title: 'PokéDexplorer. About',
-  description: 'This application was created by @akseee',
+  description: 'This application was created by @akseee in github',
 };
 
 const About = () => <AboutPage />;

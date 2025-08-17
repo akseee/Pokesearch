@@ -1,11 +1,9 @@
-import { ReactNode } from 'react';
 import { fetchManyPokemons } from '../../shared/api/pokemonServerApi';
 import MainPage from '../MainPage';
 
 export default async function Page({
   searchParams,
 }: {
-  children: ReactNode;
   searchParams: { query?: string; page?: string };
 }) {
   const param = await searchParams;

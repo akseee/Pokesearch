@@ -3,7 +3,6 @@ import { fetchManyPokemons } from '../../shared/api/pokemonServerApi';
 import MainPage from '../MainPage';
 
 export default async function Page({
-  children,
   searchParams,
 }: {
   children: ReactNode;
@@ -15,11 +14,7 @@ export default async function Page({
 
   try {
     const data = await fetchManyPokemons({ query, page });
-    return (
-      <MainPage initialData={data} query={query || ''} page={page}>
-        {children}
-      </MainPage>
-    );
+    return <MainPage initialData={data} query={query || ''} page={page} />;
   } catch (error) {
     console.error('Failed to fetch pokemons:', error);
     return <div>Error loading data</div>;

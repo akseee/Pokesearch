@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default async function Page({
   params,
 }: {
-  params: { pokemon: string };
+  params: Promise<{ pokemon: string }>;
 }) {
   const { pokemon } = await params;
   const pokemonData: PokemonData = await fetchOnePokemon(pokemon);

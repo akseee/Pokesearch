@@ -1,5 +1,6 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import { DetailedCard } from '../../../entities/pokemon';
 import { useRouter } from '../../../shared/config/i18n/navigation';
 import { PokemonData } from '../../../shared/types/pokemon.types';
@@ -11,9 +12,12 @@ interface DetailedCardPageProps {
 
 export default function DetailedCardPage({ data }: DetailedCardPageProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleCloseClick = () => {
-    router.push('/');
+    const params = new URLSearchParams(searchParams.toString());
+
+    router.push(`/?${params.toString()}`, { scroll: false });
   };
 
   return (

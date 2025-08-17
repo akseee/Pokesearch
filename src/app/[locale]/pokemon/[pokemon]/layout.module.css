@@ -1,6 +1,0 @@
-.layout {
-  position: sticky;
-  top: 177px;
-  height: calc(100vh - 167px - 100px);
-  overflow-y: auto;
-}

@@ -2,6 +2,6 @@
 
 import { MainPage } from '../MainPage';
 
-const Main = () => <MainPage />;
+const Main = () => <MainPage>{null}</MainPage>;
 
 export default Main;

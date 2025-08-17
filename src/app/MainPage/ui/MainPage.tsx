@@ -13,9 +13,9 @@ import { useParams } from 'next/navigation';
 import { ResultList } from '../../../widgets/ResultsList';
 import { getErrorMessage } from '../../../shared/api/getErrorMessage';
 import useSearchQueryParams from '../../../shared/hooks/useSearchQueryParams';
-import DetailedCardPage from '../../DetailedCardPage';
+import { ReactNode } from 'react';
 
-export const MainPage = () => {
+export const MainPage = ({ children }: { children: ReactNode }) => {
   const { query, page, setQuery, setPage } = useSearchQueryParams();
   const params = useParams();
 
@@ -76,11 +76,7 @@ export const MainPage = () => {
             error={errorMessage || undefined}
           />
         </div>
-        {pokemon && (
-          <div className={styles['right-column']}>
-            <DetailedCardPage />
-          </div>
-        )}
+        {pokemon && <div className={styles['right-column']}>{children}</div>}
       </div>
       <Pagination
         isLoading={loading}

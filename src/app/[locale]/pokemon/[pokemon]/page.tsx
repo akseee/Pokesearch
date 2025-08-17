@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
-import { MainPage } from '../../../MainPage';
+import DetailedCardPage from '../../../DetailedCardPage';
 
 export const metadata: Metadata = {
   title: 'PokéDexplorer. Pokémon',
   description: 'Here you can look at detailed information of any pokemon!',
 };
 
-const Page = () => <MainPage />;
+const Page = () => <DetailedCardPage />;
 export default Page;

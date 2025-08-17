@@ -4,18 +4,15 @@ import {
   useDispatch as dispatchHook,
   useSelector as selectorHook,
 } from 'react-redux';
-import { pokemonApi } from '../../api/pokemonApi';
 import { pokemonsReducer } from '../../../entities/pokemon';
 
 export const rootReducer = combineReducers({
   pokemons: pokemonsReducer,
-  [pokemonApi.reducerPath]: pokemonApi.reducer,
 });
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(pokemonApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

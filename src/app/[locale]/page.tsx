@@ -1,7 +1,27 @@
-'use client';
+import { ReactNode } from 'react';
+import { fetchManyPokemons } from '../../shared/api/pokemonServerApi';
+import MainPage from '../MainPage';
 
-import { MainPage } from '../MainPage';
+export default async function Page({
+  children,
+  searchParams,
+}: {
+  children: ReactNode;
+  searchParams: { query?: string; page?: string };
+}) {
+  const param = await searchParams;
+  const query = param?.query || undefined;
+  const page = param?.page ? parseInt(param.page, 10) : 1;
 
-const Main = () => <MainPage>{null}</MainPage>;
-
-export default Main;
+  try {
+    const data = await fetchManyPokemons({ query, page });
+    return (
+      <MainPage initialData={data} query={query || ''} page={page}>
+        {children}
+      </MainPage>
+    );
+  } catch (error) {
+    console.error('Failed to fetch pokemons:', error);
+    return <div>Error loading data</div>;
+  }
+}

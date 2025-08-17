@@ -1,11 +1,7 @@
 import type { PokemonStats } from '../../types/pokemon.types';
 import styles from './PokemonCardLayout.module.css';
 
-interface PokemonStatsListProps {
-  stats?: PokemonStats;
-}
-
-export const PokemonStatsList = ({ stats }: PokemonStatsListProps) => {
+export const PokemonStatsList = ({ stats }: { stats?: PokemonStats }) => {
   return (
     <ul className={styles.stats}>
       <li className={styles.stat} key="1">

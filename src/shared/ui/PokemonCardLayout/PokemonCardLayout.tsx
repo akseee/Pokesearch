@@ -42,7 +42,7 @@ export const PokemonCardLayout = ({
             width={90}
             height={90}
             className={styles.image}
-            src={image ? image : './placeholder.png'}
+            src={image ? image : '/placeholder.png'}
             alt={title}
           />
         )}

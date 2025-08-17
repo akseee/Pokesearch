@@ -3,7 +3,6 @@ import { Fragment, useState, useRef } from 'react';
 import styles from './Flyout.module.css';
 
 import { useSelector } from 'react-redux';
-import { downloadCSV } from '../model/downloadCSV';
 import { pokemonsActions, pokemonsSelectors } from '../../../entities/pokemon';
 import { useDispatch } from '../../../shared/config/store/store';
 
@@ -22,19 +21,36 @@ export const Flyout = () => {
     dispatch(pokemonsActions.clearPokemons());
   };
 
-  const onDownloadClick = () => {
-    const blob = downloadCSV(selectedPokemons);
-    const url = URL.createObjectURL(blob);
-    setCsvUrl(url);
+  const onDownloadClick = async () => {
+    if (selectedPokemons.length === 0) return;
 
-    setTimeout(() => {
-      if (downloadRef.current) {
-        downloadRef.current.click();
-        URL.revokeObjectURL(url);
-        setCsvUrl(null);
+    try {
+      const res = await fetch('/api/export', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(selectedPokemons),
+      });
+
+      if (!res.ok) {
+        throw new Error(`export failed: ${res.status} ${res.statusText}`);
       }
-      dispatch(pokemonsActions.clearPokemons());
-    }, 0);
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      setCsvUrl(url);
+
+      setTimeout(() => {
+        if (downloadRef.current) {
+          downloadRef.current.click();
+
+          URL.revokeObjectURL(url);
+          setCsvUrl(null);
+        }
+        dispatch(pokemonsActions.clearPokemons());
+      }, 100);
+    } catch (error) {
+      console.error('Error during export:', error);
+    }
   };
 
   return (

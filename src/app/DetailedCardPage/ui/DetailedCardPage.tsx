@@ -1,52 +1,27 @@
 'use client';
-import {
-  DetailedCard,
-  PokemonSkeletonCard,
-  usePokemonData,
-} from '../../../entities/pokemon';
-import { getErrorMessage } from '../../../shared/api/getErrorMessage';
+
+import { DetailedCard } from '../../../entities/pokemon';
 import { useRouter } from '../../../shared/config/i18n/navigation';
+import { PokemonData } from '../../../shared/types/pokemon.types';
 import styles from './DetailedCardPage.module.css';
-import { useParams } from 'next/navigation';
 
-const DetailedCardPage = () => {
+interface DetailedCardPageProps {
+  data: PokemonData;
+}
+
+export default function DetailedCardPage({ data }: DetailedCardPageProps) {
   const router = useRouter();
-  const params = useParams();
-
-  const pokemonParam = params?.pokemon;
-
-  const pokemon = Array.isArray(pokemonParam)
-    ? pokemonParam[0]
-    : pokemonParam || '';
-
-  const { pokemonData, isLoading, error } = usePokemonData(pokemon);
 
   const handleCloseClick = () => {
     router.push('/');
   };
 
-  if (isLoading) {
-    return <PokemonSkeletonCard />;
-  }
-
-  const errorMessage = getErrorMessage(error);
-
   return (
-    <>
+    <div className={styles.container}>
       <button className={styles.button} onClick={handleCloseClick}>
         &#9587;
       </button>
-      {pokemonData ? (
-        <DetailedCard
-          key={pokemon}
-          pokemonData={pokemonData}
-          error={errorMessage || undefined}
-        />
-      ) : (
-        <PokemonSkeletonCard />
-      )}
-    </>
+      <DetailedCard {...data} />
+    </div>
   );
-};
-
-export default DetailedCardPage;
+}

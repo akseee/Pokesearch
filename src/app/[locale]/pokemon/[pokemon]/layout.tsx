@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
-import { MainPage } from '../../../MainPage';
+import styles from './layout.module.css';
 
 const DetailedLayout = ({ children }: { children: ReactNode }) => {
-  return <MainPage>{children}</MainPage>;
+  return <div className={styles.layout}>{children}</div>;
 };
 export default DetailedLayout;

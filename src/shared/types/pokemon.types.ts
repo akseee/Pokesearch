@@ -1,11 +1,11 @@
 export interface PokemonData {
+  id: number;
   name: string;
   type: string;
-  id: number;
-  description?: string;
-  image: string;
+  image?: string;
   stats: PokemonStats;
   order: number;
+  description?: string | null;
 }
 
 export interface PokemonStats {

@@ -1,59 +1,23 @@
-import type { NamedAPIResource } from '../../../shared/api/api.types';
+'use client';
+
 import styles from './ListCard.module.css';
-import { Loader } from '../../../shared/ui/Loader/Loader';
 import { type MouseEvent } from 'react';
 import {
   getSpecificPokemonData,
   pokemonsActions,
 } from '../model/pokemonsSlice';
 import { useSelector } from 'react-redux';
-import { useGetOnePokemonQuery } from '../../../shared/api/pokemonApi';
-import { PokemonSkeletonCard } from './PokemonCardSkeleton';
-import { tranformPokemonData } from '../../../shared/lib/transformPokemonData';
-import { getErrorMessage } from '../../../shared/api/getErrorMessage';
+
 import { useDispatch } from '../../../shared/config/store/store';
 import Image from 'next/image';
 import { useRouter } from '../../../shared/config/i18n/navigation';
+import { PokemonData } from '../../../shared/types/pokemon.types';
 
-export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
-  const {
-    data: pokemonData,
-    isLoading: isLoadingPokemon,
-    error: errorPokemon,
-  } = useGetOnePokemonQuery(pokemon);
-
+export const ListCard = ({ pokemon }: { pokemon: PokemonData }) => {
   const router = useRouter();
 
   const dispatch = useDispatch();
   const isSelected = useSelector(getSpecificPokemonData(pokemon.name));
-
-  if (isLoadingPokemon) {
-    return <PokemonSkeletonCard />;
-  }
-
-  if (!pokemonData) {
-    return (
-      <li className={styles['card-layout-wrapper']}>
-        <div className={styles['error-card']}>
-          <p className={styles['error-message']}>No data available.</p>
-        </div>
-      </li>
-    );
-  }
-
-  if (errorPokemon) {
-    return (
-      <li className={styles['card-layout-wrapper']}>
-        <div className={styles['error-card']}>
-          <p className={styles['error-message']}>
-            {getErrorMessage(errorPokemon)}
-          </p>
-        </div>
-      </li>
-    );
-  }
-
-  const data = tranformPokemonData(pokemonData);
 
   const handleCardClick = () => {
     router.push(`/pokemon/${pokemon.name}`, { scroll: false });
@@ -65,13 +29,13 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
     const checked = event.currentTarget.checked;
 
     if (checked) {
-      dispatch(pokemonsActions.addPokemon(data));
+      dispatch(pokemonsActions.addPokemon(pokemon));
     } else {
-      dispatch(pokemonsActions.removePokemon(data));
+      dispatch(pokemonsActions.removePokemon(pokemon));
     }
   };
 
-  const { name, image, type, order } = data;
+  const { name, image, type, order } = pokemon;
 
   return (
     <li
@@ -90,20 +54,14 @@ export const ListCard = ({ pokemon }: { pokemon: NamedAPIResource }) => {
       </div>
 
       <div className={styles['image-container']}>
-        {isLoadingPokemon ? (
-          <div className={styles.image}>
-            <Loader />
-          </div>
-        ) : (
-          <Image
-            className={styles.image}
-            src={image !== '' ? image : './placeholder.png'}
-            alt={name}
-            loading="lazy"
-            height={90}
-            width={90}
-          />
-        )}
+        <Image
+          className={styles.image}
+          src={image || '/placeholder.png'}
+          alt={name}
+          loading="lazy"
+          height={90}
+          width={90}
+        />
       </div>
       <div className={styles.title}>{name}</div>
       <div className={styles.order}>

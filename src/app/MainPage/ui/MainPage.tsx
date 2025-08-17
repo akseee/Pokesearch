@@ -1,94 +1,36 @@
-'use client';
-
 import styles from './MainPage.module.css';
-import { Loader } from '../../../shared/ui/Loader/Loader';
-import {
-  pokemonApi,
-  useGetManyPokemonsQuery,
-} from '../../../shared/api/pokemonApi';
-import { useDispatch } from '../../../shared/config/store/store';
 import { SearchForm } from '../../../features/SearchForm';
 import { Pagination } from '../../../features/Pagination';
-import { useParams } from 'next/navigation';
-import { ResultList } from '../../../widgets/ResultsList';
-import { getErrorMessage } from '../../../shared/api/getErrorMessage';
-import useSearchQueryParams from '../../../shared/hooks/useSearchQueryParams';
 import { ReactNode } from 'react';
+import { PokemonData } from '../../../shared/types/pokemon.types';
+import { ApiResponse } from '../../../shared/api/api.types';
+import { ResultList } from '../../../widgets/ResultsList';
 
-export const MainPage = ({ children }: { children: ReactNode }) => {
-  const { query, page, setQuery, setPage } = useSearchQueryParams();
-  const params = useParams();
-
-  const pokemonParam = params?.pokemon;
-
-  const pokemon = Array.isArray(pokemonParam)
-    ? pokemonParam[0]
-    : pokemonParam || '';
-
-  const {
-    data: pokemonsData,
-    isLoading,
-    isFetching,
-    error,
-  } = useGetManyPokemonsQuery({ query, page });
-
-  const dispatch = useDispatch();
-
-  const handleRefresh = () => {
-    dispatch(
-      pokemonApi.util.invalidateTags([{ type: 'PokemonList', id: page }])
-    );
-  };
-
-  const handleSearch = (newQuery: string) => {
-    setQuery(newQuery);
-  };
-
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-  };
-
-  const loading = isLoading || isFetching;
-  const errorMessage = getErrorMessage(error);
-
-  const totalPages = pokemonsData ? Math.ceil(pokemonsData.count / 20) : 1;
+export default async function MainPage({
+  children,
+  initialData,
+  query,
+  page,
+}: {
+  children: ReactNode;
+  initialData: ApiResponse<PokemonData>;
+  query: string;
+  page: number;
+}) {
+  const totalPages = Math.ceil(initialData.count / 20);
 
   return (
     <div className={styles.wrapper}>
-      <SearchForm
-        query={query}
-        onSubmit={handleSearch}
-        onRefresh={handleRefresh}
-        isLoading={loading}
-      />
-      <Pagination
-        isLoading={loading}
-        page={page}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      <SearchForm initialQuery={query} />
+      <Pagination page={page || 1} totalPages={totalPages} />
 
-      <div className={`${styles.section} ${pokemon ? styles.detailed : ''}`}>
+      <div className={`${styles.section} `}>
         <div className={styles['left-column']}>
-          <ResultList
-            pokemons={pokemonsData?.results || []}
-            isLoading={loading}
-            error={errorMessage || undefined}
-          />
+          <ResultList pokemons={initialData.results} />
         </div>
-        {pokemon && <div className={styles['right-column']}>{children}</div>}
+        {children}
       </div>
-      <Pagination
-        isLoading={loading}
-        page={page}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
-      {loading && (
-        <div className={styles.loader} data-testid="loader">
-          <Loader />
-        </div>
-      )}
+      <Pagination page={page || 1} totalPages={totalPages} />
     </div>
   );
-};
+}

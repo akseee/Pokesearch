@@ -2,6 +2,6 @@
 
 import NotFoundPage from '../NotFoundPage';
 
-const Page = () => <NotFoundPage />;
-
-export default Page;
+export default function NotFound() {
+  return <NotFoundPage />;
+}

@@ -1,21 +1,30 @@
+'use client';
+
+import { useRouter, useSearchParams } from 'next/navigation';
 import styles from './Pagination.module.css';
 
 export const Pagination = ({
-  isLoading,
   page,
   totalPages,
-  onPageChange,
 }: {
-  isLoading: boolean;
   page: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
 }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const onPageChange = (newPage: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('page', newPage.toString());
+
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
   return (
     <nav className={styles.pagination} aria-label="pagination">
       <button
         className={styles.pageButton}
-        disabled={page === 1 || isLoading}
+        disabled={page === 1}
         aria-label="first page"
         onClick={() => onPageChange(1)}
       >
@@ -23,7 +32,7 @@ export const Pagination = ({
       </button>
       <button
         className={styles.pageButton}
-        disabled={page <= 5 || isLoading}
+        disabled={page <= 5}
         aria-label="previous pages"
         onClick={() => onPageChange(Math.max(page - 5, 1))}
       >
@@ -33,7 +42,7 @@ export const Pagination = ({
         className={styles.pageButton}
         aria-label="previous page"
         onClick={() => onPageChange(page - 1)}
-        disabled={page === 1 || isLoading}
+        disabled={page === 1}
       >
         &#x25c0;
       </button>
@@ -49,7 +58,7 @@ export const Pagination = ({
       <button
         className={styles.pageButton}
         aria-label="next page"
-        disabled={page === totalPages || isLoading}
+        disabled={page === totalPages}
         onClick={() => onPageChange(page + 1)}
       >
         &#x25b6;
@@ -58,14 +67,14 @@ export const Pagination = ({
       <button
         className={styles.pageButton}
         aria-label="next pages"
-        disabled={page + 5 > totalPages || isLoading}
+        disabled={page + 5 > totalPages}
         onClick={() => onPageChange(Math.min(page + 5, totalPages))}
       >
         &#x25b6; &#x25b6;
       </button>
 
       <button
-        disabled={page === totalPages || isLoading}
+        disabled={page === totalPages}
         className={styles.pageButton}
         aria-label="last page"
         onClick={() => onPageChange(totalPages)}

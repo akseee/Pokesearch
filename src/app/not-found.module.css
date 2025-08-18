@@ -1,0 +1,47 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 90vh;
+  margin-bottom: 5em;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  height: 50vh;
+  background-color: rgb(156, 0, 0);
+}
+
+.title {
+  color: white;
+  font-size: 3em;
+  transition: color 0.3s ease-in-out;
+}
+
+.title:hover {
+  color: black;
+}
+
+.text {
+  font-weight: bold;
+  font-size: 1.3em;
+  text-align: center;
+}
+
+.link {
+  display: block;
+  padding: 1em;
+  color: white;
+  font-size: 1.5em;
+  background-color: rgb(59, 0, 0);
+  transition: 0.3s ease-in-out;
+}
+
+.link:hover {
+  background-color: rgb(119, 0, 0);
+  transform: scale(1.1);
+}

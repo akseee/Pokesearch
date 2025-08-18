@@ -2,7 +2,8 @@ import { Fragment } from 'react';
 import { Loader } from '../Loader/Loader';
 import type { PokemonStats } from '../../types/pokemon.types';
 import styles from './PokemonCardLayout.module.css';
-import PokemonStatsList from './PokemonStatsList';
+import { PokemonStatsList } from './PokemonStatsList';
+import Image from 'next/image';
 
 interface PokemonCardLayoutProps {
   loading?: boolean;
@@ -37,7 +38,13 @@ export const PokemonCardLayout = ({
             <Loader />
           </div>
         ) : (
-          <img className={styles.image} src={image} alt={title} />
+          <Image
+            width={90}
+            height={90}
+            className={styles.image}
+            src={image ? image : '/placeholder.png'}
+            alt={title}
+          />
         )}
       </div>
       <div className={styles.title}>{title}</div>

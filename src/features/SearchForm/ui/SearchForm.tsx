@@ -1,19 +1,15 @@
+'use client';
+
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import styles from './SearchForm.module.css';
-import { Loader } from '../../../shared/ui/Loader/Loader';
+import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 
-export const SearchForm = ({
-  query = '',
-  onSubmit,
-  onRefresh,
-  isLoading,
-}: {
-  query?: string;
-  onSubmit: (query: string) => void;
-  onRefresh: () => void;
-  isLoading: boolean;
-}) => {
-  const [searchQuery, setSearchQuery] = useState(query);
+export const SearchForm = ({ initialQuery }: { initialQuery: string }) => {
+  const router = useRouter();
+  const t = useTranslations('search');
+
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -21,12 +17,12 @@ export const SearchForm = ({
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit(searchQuery.trim());
+    router.push(`/?query=${searchQuery.trim()}&page=1`);
   };
 
   const handleClear = () => {
     setSearchQuery('');
-    onSubmit('');
+    router.push(`/?query=&page=1`);
   };
 
   return (
@@ -37,20 +33,20 @@ export const SearchForm = ({
         className={styles.input}
         value={searchQuery}
         onChange={handleInputChange}
-        placeholder="Search…"
+        placeholder={t('palceholder_btn')}
       />
       <button type="submit" className={styles.submit}>
-        {isLoading ? <Loader /> : 'Find!'}
+        {t('find_btn')}
       </button>
       <button
         onClick={handleClear}
         className={styles.clear}
         disabled={searchQuery === ''}
       >
-        Clear
+        {t('clear_btn')}
       </button>
-      <button onClick={onRefresh} className={styles.clear}>
-        Refresh
+      <button onClick={() => router.refresh()} className={styles.clear}>
+        {t('refetch_btn')}
       </button>
     </form>
   );

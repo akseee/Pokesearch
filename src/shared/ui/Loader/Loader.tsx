@@ -1,17 +1,16 @@
-import { Component } from 'react';
+'use client';
 import styles from './Loader.module.css';
 
 interface LoaderProps {
   className?: string;
 }
 
-export class Loader extends Component<LoaderProps> {
-  render() {
-    const { className = '' } = this.props;
-    return (
-      <div className={`${styles['spinner-container']} ${styles[className]}`}>
-        <div className={styles['spinner-ring']} />
-      </div>
-    );
-  }
-}
+export const Loader = (className: LoaderProps) => {
+  return (
+    <div
+      className={`${styles['spinner-container']} ${styles[className.toString()]}`}
+    >
+      <div className={styles['spinner-ring']} />
+    </div>
+  );
+};
